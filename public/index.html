@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/assets/oreflore-logo_uGOW1DiZU7e1ME32Otron.png" />
+    <link rel="preload" as="image" href="/assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp" fetchpriority="high" />
     <meta property="og:url" content="https://url/" />
     <meta property="og:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta property="og:type" content="website" />
@@ -726,8 +727,7 @@
                 <label for="courriel">Adresse courriel</label>
                 <input type="email" id="courriel" name="courriel" placeholder="Votre courriel" required />
               </div>
-              <div>
-                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+              <div id="turnstile-container">
                 <div class="cf-turnstile" data-sitekey="0x4AAAAAADg40iSCEKX7QERA" data-theme="light"></div>
               </div>
               <button type="submit" id="inscrire" class="btn-submit">M'inscrire</button>
@@ -801,6 +801,20 @@
     <footer>
       <p>© 2026 Ferme Oréflore S.E.N.C. Tous droits réservés.</p>
     </footer>
+
+    <script>
+      // Lazy-load Turnstile only when the form is interacted with
+      let turnstileLoaded = false;
+      document.getElementById('form_inscription').addEventListener('focusin', function() {
+        if (turnstileLoaded) return;
+        turnstileLoaded = true;
+        const s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+      }, { once: false });
+    </script>
 
     <script>
       const toggle = document.getElementById('nav-toggle');
