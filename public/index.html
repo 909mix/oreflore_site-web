@@ -803,6 +803,41 @@
     </footer>
 
     <script>
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMnSU-hKPS9wNeWxwVgzkHNn8Th_eaoQYmpng3ZVUNLC0TFv6GKF0hAJCIsVJ6UL7UvA/exec';
+
+      document.getElementById('form_inscription').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const btn  = document.getElementById('inscrire');
+        const nom      = document.getElementById('nom').value.trim();
+        const courriel = document.getElementById('courriel').value.trim();
+        const token    = (form.querySelector('[name="cf-turnstile-response"]') || {}).value || '';
+
+        btn.disabled    = true;
+        btn.textContent = 'Inscription en cours…';
+
+        try {
+          const res    = await fetch(APPS_SCRIPT_URL, {
+            method : 'POST',
+            body   : new URLSearchParams({ nom, courriel, 'cf-turnstile-response': token }),
+          });
+          const result = await res.json();
+
+          if (result.success) {
+            form.innerHTML = '<p style="color:var(--green);padding:0.5rem 0;">Merci ! Vous êtes maintenant inscrit(e) à notre infolettre.</p>';
+          } else {
+            throw new Error(result.error || 'Erreur');
+          }
+        } catch (err) {
+          btn.disabled    = false;
+          btn.textContent = "M'inscrire";
+          const note = form.querySelector('.form-note');
+          if (note) note.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+        }
+      });
+    </script>
+
+    <script>
       // Lazy-load Turnstile only when the form is interacted with
       let turnstileLoaded = false;
       document.getElementById('form_inscription').addEventListener('focusin', function() {
