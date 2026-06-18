@@ -1,5 +1,6 @@
 const SHEET_ID         = '1fnMikQI5xcIQRIdYsBLSJh57Z_iDnAguRviieBRM_6M';
-const TURNSTILE_SECRET = 'COLLER_CLE_SECRETE_ICI'; // Cloudflare dashboard > Turnstile > Secret key
+const TURNSTILE_SECRET = 'COLLER_CLE_SECRETE_ICI';
+const BREVO_API_KEY    = 'BREVO_API_KEY_HERE';
 
 function doPost(e) {
   try {
@@ -7,15 +8,14 @@ function doPost(e) {
     var courriel = e.parameter.courriel || '';
     var token    = e.parameter['cf-turnstile-response'] || '';
 
-    // Validate Turnstile CAPTCHA (skip if secret not configured yet)
+    // Validate Turnstile CAPTCHA (skip if secret not configured)
     if (TURNSTILE_SECRET !== 'COLLER_CLE_SECRETE_ICI' && token) {
       var verify = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
         method      : 'post',
         contentType : 'application/x-www-form-urlencoded',
         payload     : 'secret=' + TURNSTILE_SECRET + '&response=' + token
       });
-      var verified = JSON.parse(verify.getContentText()).success;
-      if (!verified) {
+      if (!JSON.parse(verify.getContentText()).success) {
         return json({ success: false, error: 'CAPTCHA invalide' });
       }
     }
@@ -25,11 +25,27 @@ function doPost(e) {
       return json({ success: false, error: 'Donnees invalides' });
     }
 
-    // Append row: Date | Nom | Courriel
+    // 1. Append to Google Sheet
     SpreadsheetApp
       .openById(SHEET_ID)
       .getActiveSheet()
       .appendRow([new Date(), nom, courriel]);
+
+    // 2. Add contact to Brevo
+    if (BREVO_API_KEY !== 'BREVO_API_KEY_HERE') {
+      UrlFetchApp.fetch('https://api.brevo.com/v3/contacts', {
+        method             : 'post',
+        contentType        : 'application/json',
+        headers            : { 'api-key': BREVO_API_KEY },
+        payload            : JSON.stringify({
+          email         : courriel,
+          attributes    : { PRENOM: nom },
+          listIds       : [3],
+          updateEnabled : true
+        }),
+        muteHttpExceptions : true
+      });
+    }
 
     return json({ success: true });
 
