@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr-CA">
   <head>
     <meta charset="UTF-8" />
@@ -817,17 +817,12 @@
         btn.textContent = 'Inscription en cours…';
 
         try {
-          const res    = await fetch(APPS_SCRIPT_URL, {
+          await fetch(APPS_SCRIPT_URL, {
             method : 'POST',
+            mode   : 'no-cors',
             body   : new URLSearchParams({ nom, courriel, 'cf-turnstile-response': token }),
           });
-          const result = await res.json();
-
-          if (result.success) {
-            form.innerHTML = '<p style="color:var(--green);padding:0.5rem 0;">Merci ! Vous êtes maintenant inscrit(e) à notre infolettre.</p>';
-          } else {
-            throw new Error(result.error || 'Erreur');
-          }
+          form.innerHTML = '<p style="color:var(--green);padding:0.5rem 0;">Merci ! Vous êtes maintenant inscrit(e) à notre infolettre.</p>';
         } catch (err) {
           btn.disabled    = false;
           btn.textContent = "M'inscrire";
