@@ -1,916 +1,853 @@
-<!-- Ferme Oréflore - Site web -->
 <!doctype html>
-<html
-  lang="fr-CA"
-  data-ws-project="ee430e69-88e0-4ed7-aac1-f337d5444d09"
-  data-ws-last-published="2026-06-17T17:55:57.908Z"
->
+<html lang="fr-CA">
   <head>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/assets/static/app_generated_index-6937cd5a.DLcKk7GP.css"
-    />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/assets/oreflore-logo_uGOW1DiZU7e1ME32Otron.png" />
     <meta property="og:url" content="https://url/" />
     <meta property="og:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ferme Oréflore" />
-    <meta
-      name="description"
-      content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais."
-    />
-    <meta
-      property="og:description"
-      content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais."
-    />
+    <meta name="description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
+    <meta property="og:description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
     <title>Ferme Oréflore - Ripon (Québec)</title>
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Ferme Oréflore"
-      }
+      { "@context": "https://schema.org", "@type": "WebSite", "name": "Ferme Oréflore" }
     </script>
-  <style>
-    .link-contacter {
-      color: #e9e5dd;
-      text-decoration: none;
-    }
-    .link-contacter:hover {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-  </style>
+    <style>
+      /* === RESET === */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      /* === VARIABLES === */
+      :root {
+        --green:       rgb(94, 126, 100);
+        --green-dark:  rgb(77, 105, 83);
+        --brown:       #634017;
+        --text:        rgb(44, 40, 36);
+        --text-mid:    rgb(60, 56, 47);
+        --cream:       #f8f6f2;
+        --beige:       #e9e5dd;
+        --footer-bg:   rgb(44, 40, 36);
+        --radius:      0.75rem;
+        --radius-sm:   0.125rem;
+        --shadow:      0 10px 30px rgba(0,0,0,.08), inset 0 0 0 1px rgba(0,0,0,.03);
+        --shadow-lg:   0 10px 30px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.05);
+        --shadow-dark: 0 10px 30px rgba(0,0,0,.10), inset 0 0 0 1px rgba(255,255,255,.10);
+      }
+
+      /* === BASE === */
+      body {
+        font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+        color: var(--text);
+        background: var(--cream);
+        min-height: 100vh;
+        line-height: 1.5;
+      }
+
+      img { display: block; max-width: 100%; }
+      a { color: inherit; }
+      ul { list-style: none; }
+
+      /* === LAYOUT === */
+      .container {
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+
+      .section {
+        padding: 6rem 0;
+      }
+      .section-cream { background: var(--cream); }
+      .section-beige { background: var(--beige); }
+      .section-green { background: var(--green); color: #fff; }
+
+      /* === TYPOGRAPHY === */
+      h1 {
+        font-size: 3rem;
+        font-weight: 300;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+        color: var(--brown);
+      }
+      h2 {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+        font-weight: 300;
+        letter-spacing: -0.025em;
+      }
+      h3 {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 500;
+      }
+      h4 {
+        font-size: inherit;
+        font-weight: 500;
+        text-decoration: underline;
+        margin-bottom: 0.1rem;
+      }
+
+      .section-heading {
+        text-align: center;
+        max-width: 48rem;
+        margin: 0 auto 4rem;
+      }
+      .section-heading h2 { margin-bottom: 1rem; }
+      .section-heading p { color: var(--text-mid); line-height: 1.625; }
+
+      /* === CARDS === */
+      .card {
+        background: var(--cream);
+        border-radius: var(--radius);
+        padding: 2rem;
+        box-shadow: var(--shadow);
+      }
+      .section-beige .card { background: var(--cream); }
+      .section-green  .card {
+        background: rgba(255,255,255,0.10);
+        box-shadow: var(--shadow-dark);
+      }
+
+      .card-photo {
+        background: var(--cream);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        transform: rotate(-1deg);
+      }
+      .card-photo img {
+        border-radius: calc(var(--radius) - 0.25rem);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card-photo-tilt {
+        transform: rotate(-2deg) translateX(-1.5rem);
+        background: var(--beige);
+      }
+
+      /* === BUTTONS === */
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        text-decoration: none;
+        border-radius: var(--radius-sm);
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-family: inherit;
+        line-height: 1.25rem;
+      }
+      .btn-green { background: var(--green); color: #fff; }
+      .btn-green:hover { background: var(--green-dark); }
+      .btn-white { background: #fff; color: var(--green); margin-top: 0.5rem; }
+      .btn-white:hover { background: var(--cream); }
+
+      /* === HEADER === */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(248,246,242,0.95);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        box-shadow: inset 0 -1px 0 rgba(0,0,0,.10);
+      }
+      html { scroll-behavior: smooth; }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        gap: 1rem;
+        transition: padding 0.3s ease;
+      }
+      header.scrolled nav { padding: 0.5rem 0; }
+      header.scrolled .nav-logo { font-size: 1.05rem; }
+      header.scrolled .nav-links { font-size: 0.8rem; }
+      .nav-links a.active { color: var(--green); font-weight: 500; }
+      .nav-logo {
+        font-family: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+        color: var(--brown);
+        font-weight: 300;
+        letter-spacing: 0.025em;
+        text-decoration: none;
+        font-size: 1.125rem;
+        flex-shrink: 0;
+        transition: font-size 0.3s ease;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        transition: font-size 0.3s ease;
+      }
+      .nav-links a {
+        color: var(--brown);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover { color: var(--green); }
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text);
+        padding: 0;
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .nav-toggle svg { width: 1.5rem; height: 1.5rem; }
+
+      /* === HERO === */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        background-image: url('/assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp');
+        background-size: cover;
+        background-position: center;
+        background-color: var(--beige);
+        display: flex;
+        align-items: center;
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: fit-content;
+        margin: 0 auto;
+        padding: 0 2.5rem 5rem;
+      }
+      .hero-credit {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 0.65rem;
+        color: rgba(0,0,0,0.6);
+      }
+      .hero-card {
+        background: #f7f6f2b0;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.05);
+        max-width: 33rem;
+        width: 100%;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        text-align: center;
+      }
+      .hero-subtitle {
+        font-size: 1.1rem;
+        color: var(--green);
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+
+      /* === NOTRE HISTOIRE === */
+      .histoire-intro {
+        color: var(--text-mid);
+        line-height: 1.625;
+        margin-top: 1.5rem;
+      }
+      .histoire-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+        align-items: center;
+      }
+      .histoire-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .histoire-cards .card h3 {
+        color: var(--green);
+        text-align: center;
+        margin-bottom: 0.75rem;
+      }
+      .histoire-cards .card p {
+        color: var(--text-mid);
+        line-height: 1.5;
+      }
+      .histoire-closing {
+        color: var(--text-mid);
+        line-height: 1.4;
+        text-align: center;
+        font-size: inherit;
+      }
+
+      /* === ACTIVITÉS === */
+      .activites-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+      .activites-grid .card {
+        background: #e9e5dd;
+        text-align: center;
+        line-height: 1.3;
+      }
+      .activites-grid .card h3 {
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+      .card-label {
+        color: var(--green);
+        font-style: italic;
+        font-size: 1rem;
+        margin: 0.5rem 0 0.75rem;
+      }
+      .activites-grid .card p:last-child {
+        color: var(--text-mid);
+      }
+
+      /* === VISITEZ === */
+      .visitez-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 5rem;
+        align-items: center;
+        max-width: 950px;
+        margin: 0 auto;
+      }
+      .section-green .card h3 {
+        margin-bottom: 0.2rem;
+      }
+      .section-green .card h3 + ul {
+        margin-bottom: 0.2rem;
+      }
+      .section-green .btn-white {
+        margin-top: 0;
+      }
+      .hours-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.1rem 0;
+      }
+      .h3-separator {
+        margin-top: 1.75rem;
+      }
+      .hours-note {
+        margin-top: 0.75rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(255,255,255,0.20);
+      }
+      .hours-note p {
+        font-style: italic;
+        font-size: 0.92rem;
+        color: rgba(255,255,255,0.80);
+      }
+      .hours-note a {
+        color: rgba(255,255,255,0.75);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        text-decoration-color: rgba(255,255,255,0.40);
+      }
+      .hours-note a:hover {
+        color: #fff;
+        text-decoration-color: rgba(255,255,255,0.80);
+      }
+      .visitez-photo {
+        min-height: 16rem;
+      }
+
+      /* === REJOINDRE === */
+      .rejoindre-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+        align-items: start;
+      }
+      .rejoindre-grid .card h3 {
+        font-size: 1.5rem;
+        font-weight: 300;
+        letter-spacing: -0.025em;
+        color: var(--brown);
+        margin-bottom: 1rem;
+      }
+      .rejoindre-grid .card > p {
+        color: var(--text-mid);
+        margin-bottom: 1rem;
+      }
+
+      /* Form */
+      .form-group { margin-bottom: 0.6rem; }
+      .form-group label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-mid);
+        margin-bottom: 0.25rem;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-family: inherit;
+        font-size: 0.875rem;
+        background: #fff;
+        border: 1px solid rgb(208,201,184);
+        border-radius: var(--radius-sm);
+        transition: border-color 0.3s;
+        color: var(--text);
+      }
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--green);
+      }
+      .cf-turnstile { margin: 0.5rem 0; }
+      .btn-submit {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 2rem;
+        background: var(--green);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .btn-submit:hover { background: var(--green-dark); }
+      .form-note {
+        margin-top: 0.4rem;
+        font-size: 0.8rem;
+        color: #a8a8a8;
+        font-style: italic;
+        line-height: 1.4;
+      }
+
+      /* Contact */
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+      }
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        line-height: 1.3;
+      }
+      .contact-icon {
+        color: var(--green);
+        padding-top: 0.25rem;
+        flex-shrink: 0;
+      }
+      .contact-icon svg { width: 1.25rem; height: 1.25rem; }
+      .contact-item p { color: var(--text-mid); margin: 0; }
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        padding-top: 0.5rem;
+        justify-content: center;
+      }
+      .social-links a {
+        color: var(--green);
+        text-decoration: none;
+        transition: color 0.3s;
+        display: flex;
+      }
+      .social-links a:hover { color: var(--green-dark); }
+
+      /* === FOOTER === */
+      footer {
+        background: var(--footer-bg);
+        color: #fff;
+        padding: 2.5rem 0;
+        text-align: center;
+        font-size: 0.875rem;
+      }
+
+      /* === RESPONSIVE === */
+      @media (max-width: 991px) {
+        .histoire-grid,
+        .visitez-grid,
+        .rejoindre-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .visitez-grid { max-width: 500px; }
+        .visitez-photo { min-height: 16rem; }
+        .card-photo-tilt { transform: rotate(-2deg); }
+      }
+
+      @media (max-width: 767px) {
+        .section { padding: 5rem 0; }
+        .container { padding: 0 1.5rem; }
+        h1 { font-size: 1.875rem; line-height: 2.25rem; }
+        h2 { font-size: 1.875rem; line-height: 2.25rem; }
+        .nav-links { display: none; flex-direction: column; align-items: center; gap: 0.75rem; }
+        .nav-links.open {
+          display: flex;
+          position: fixed;
+          top: 3.5rem;
+          left: 0;
+          width: 100%;
+          background: var(--cream);
+          padding: 2rem 1.5rem;
+          box-shadow: 0 4px 12px rgba(0,0,0,.08);
+          z-index: 40;
+        }
+        .nav-toggle { display: block; }
+      }
+
+      /* === SCROLL REVEAL === */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
-  <body class="w-element">
-    <div class="w-element c1vzeor5 c1rgwlg9 c1rw5le3 c11guce c1yknvku cvmn3ch">
-      <header
-        class="w-element c1goivrr c76sx6x c2gl2ma c6xk9m6 c1gwcm1n cczfvwq cy85ews cqo3ixn c1fdxwru csatye7 c1iduvl8 c7q3so cxas1l2 cov6qze c1lebgnh c1ooadit cp7mswy c23pj8w c1v03y7h c42eu1b cj0kddy c97bbci cj0lk1y c48r0rx ch8ba6g cq5lagw cqjpmqm c1x8d59h"
-      >
-        <div
-          class="w-element c1xib9av c2pxh6r cssor0m c6xudsh c17shj1e cbrdref cgj2jxh c19jg5hu c1iiz3ck c2j0v69 cudsqt6 c15hpn28 cbazasa c1ak1scj c1mmnaf1 cfoqxm6 c149mej1 c1204nks c103c0wv"
-        >
-          <nav class="w-element crbwc6y cjzrt62 c19yjbjr c19a56p4">
-            <a
-              aria-label="Ferme Oréflore"
-              id=""
-              aria-current="page"
-              class="w-element c282ap c18j69jy cwp5y2x cn2b1q6 c1lvyhyq c11guce c9h9jzj c18zjm15 caxaynk cvmn3ch cgzu9kn cncrmsp cixcb5w ceyycou cwqjdb9 active"
-              href="#"
-              >Ferme Oréflore</a
-            >
-            <div
-              id="menu-defilant"
-              class="w-element c1av7hqn c18x2ui9 cdq7p2j c8qgwgs con2zho c18lxe65 c1g6wza1 c1fulopn clnyslx cyk116o cr1fqxp c1bqlpyc cqj5s7b cgsmsgg c1ml5gmo csfgz2o c1uol5a6 crbwc6y cjzrt62 c1mfh3t1 c4d7w6c c1wv9bcy c52ryn7 c1xqsfdh c14cthdv c454n3s c1vkuhig c1efiz1c c1467pnc clkbbw8"
-            >
-              <a
-                class="w-element c9h9jzj c282ap c18j69jy cwp5y2x c1gh3gsn c1lvl4mq c1c1rnmq chtpyyn civ2xh1 c116sd4a c4nq40l"
-                href="#histoire"
-                >À propos</a
-              >
-              <a
-                class="w-element c9h9jzj c282ap c18j69jy cwp5y2x c1gh3gsn c1lvl4mq c1c1rnmq chtpyyn civ2xh1 c116sd4a c769aae c11tm52d c4nq40l"
-                href="#activites"
-                >Activités</a
-              >
-              <a
-                class="w-element c9h9jzj c282ap c18j69jy cwp5y2x c1gh3gsn c1lvl4mq c1c1rnmq chtpyyn civ2xh1 c116sd4a c769aae c11tm52d c4nq40l"
-                href="#visitez"
-                >Planifier une visite</a
-              >
-              <a
-                class="w-element c9h9jzj c282ap c18j69jy cwp5y2x c1gh3gsn c1lvl4mq c1c1rnmq chtpyyn civ2xh1 c116sd4a c4nq40l"
-                href="#rejoindre"
-                >Coordonnées</a
-              >
-            </div>
-            <button
-              aria-label="Open menu"
-              type="button"
-              id="menu_btn"
-              class="w-element c1oxw8e5 c1uzp40w chq5uaz c1jw1zw7 c1oum4eu c1wvmxo0 c1wjjcww c11rdzg0 cftbmlg cgzycjy c1uaz3eg cugwk2s cb11rfz cfo98zl cuup29z c7p0c0w c2dbd10 cixcb5w ceyycou c14cthdv"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-element chzyp2g c1cuj297 c2dbd10 c7p0c0w"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  class="w-element"
-                ></path>
-              </svg>
-            </button>
-          </nav>
-        </div>
-      </header>
-      <section
-        class="w-element cw49wdu c1vzeor5 crbwc6y cjzrt62 c1rgwlg9 cu3eop3"
-      >
-        <div
-          class="w-element c1xib9av c2pxh6r cssor0m c6xudsh c5wcd8u c1ai6fa9 c15hpn28 cbazasa cw49wdu c1oxnriw c1ak1scj c1mmnaf1 cfoqxm6 c149mej1 c1fbbnoe crm0dyn"
-        >
-          <div
-            class="w-element c1goivrr c76sx6x c2gl2ma ck6sq9x c1te4jrv cqjpmqm cqnbe02 c1t0y54z co8kxqe cdd4ntq c1mc5qaa ctyrcx6 c1hz0bg0 cgqj9s8 c1t71zqz c1ytnl5d cri7pol cl0ggg9 c10z05uy cb6a8o1 clojm2g c1efiz1c c5wcd8u c9rb9zn c4nq40l"
-          >
-            <h1
-              class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv c13lwbpr cjsx74p c18zjm15 c12l1gwb cvmn3ch c9h9jzj cmupmlr c1eu4taq c1tpmmgz crbvcvg c19a56p4 c4nq40l"
-            >
-              Ferme Oréflore
-            </h1>
-            <p
-              class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c3iskti c11kqscp c1sqo5he c11guce c1hutbvv c5yiiu cgksgyy clwvqzb c1tpmmgz c170dp3v c19a56p4 cx6n2yy c1a0o47g c769aae c11tm52d c11bl3xm cb6a8o1 clojm2g c4nq40l"
-            >
-              Petits fruits et crêperie, à Ripon (QC).
-            </p>
-            <a
-              class="w-element c282ap c18j69jy cwp5y2x c1goivrr c76sx6x c2gl2ma ctal2m8 cruncw4 c1rgwlg9 c1q52s61 ctto2kd crcxr54 c17fznhg c1xn7liq c4d7w6c c1wv9bcy c11guce cibqdl4 c52ryn7 c1xqsfdh cqjpmqm c1gh3gsn c1lvl4mq c1c1rnmq c1v8xkzn chtpyyn c116pwk7 cgfpvu7 c19a56p4 c1tpmmgz c13q0pzf c4nq40l cb6a8o1"
-              href="#visitez"
-              >heures d&#x27;ouverture</a
-            >
-          </div>
-        </div>
-        <div
-          class="w-element c186ms94 c48r0rx co4a95i chao8kg cs8dvmh cl407kw c8ns8j6 c1qfv3mw"
-        >
-          <img
-            alt=""
-            width="1248"
-            src="/assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp"
-            title=""
-            class="w-image c11fgbtz cbazasa c1797ebn c1lcph87 c1skvmkg c9vk00v"
-            sizes="100vw"
-            srcset="
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp   16w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp   32w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp   48w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp   64w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp   96w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp  128w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp  256w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp  384w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp  640w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp  750w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp  828w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp 1080w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp 1200w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp 1920w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp 2048w,
-              /assets/bleuet-photo-couverture_SWtWqUfCSQnKjFA5XJysG.webp 3840w
-            "
-            decoding="async"
-            loading="lazy"
-          />
-          <div
-            class="w-element c186ms94 c48r0rx co4a95i chao8kg cs8dvmh c1axgz0y crbwc6y c15ruyi6 c1w3fmxx cte7qwk cvqrtcj c1qjnmmv c15gv5rw c5le6eh csrui9q c1du4lzm crbvcvg c1s6oqso c194fyaj c14u6ivz co5tneq"
-          >
-            Photo par Ava Tyler (Unsplash)
-          </div>
-        </div>
-      </section>
-      <style>
-        @keyframes ws-scroll-animation-_R1m_ {
-          from {
-            opacity: 0;
-          }
-        }
+  <body>
 
-        @media (prefers-reduced-motion: no-preference) {
-          [data-ws-animate-id="_R1m_"]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])) {
-            animation-name: ws-scroll-animation-_R1m_;
-            animation-fill-mode: backwards;
-            animation-play-state: paused;
-            animation-duration: 1ms;
-          }
-        }</style
-      ><noscript
-        ><style>
-          [data-ws-animate-id="_R1m_"]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R1m_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])) {
-            animation: none;
-          }
-        </style></noscript
-      >
-      <div data-ws-animate-id="_R1m_" style="display: contents">
-        <section
-          id="histoire"
-          class="w-element c1rgwlg9 c1odr98m cvsix04 c1996js0 crzggvh c1368xl8 c9spinp crcwpgr c19zp4yw c90e2z0"
-        >
-          <div
-            class="w-element c1xib9av c2pxh6r cssor0m c6xudsh c1iiz3ck c15hpn28 cbazasa c1ak1scj c1mmnaf1 cfoqxm6 c149mej1 cw49wdu"
-          >
-            <div class="w-element c1ak1scj c1mmnaf1 c115ng1p c1ltxjyw cs8q988">
-              <h2
-                class="w-element c1e8n2ex cs2x0a2 c1lh6u00 ctyc4pv c1w5tbs9 c18zjm15 c12l1gwb c1u6vgwv c9h9jzj cc228t1 cwj9tr3 c19a56p4"
-              >
-                Notre histoire
-              </h2>
-              <p
-                class="w-element c1cmxhwk cs2x0a2 c1329797 c1lh6u00 c11guce clvwzc4 c1pl9ggt cdxy9ig cx8v6om c1fx85cd c13lraz0"
-              >
-                <i class="w-element"
-                  >À la confluence de l’opportunisme et de la spontanéité,
-                  Oréflore prend naissance dans un lieu animé par le désir de
-                  renouveler les façons d’habiter et de vivre le territoire.
-                  Prenant fièrement sa place au sein des Moulins de Ripon,
-                  l’initiative s’émancipe grâce aux efforts et au soutien de sa
-                  communauté. Pour l&#x27;instant, nous sommes reconnaissants
-                  d&#x27;avoir captivé votre attention. Pour la suite, on vous
-                  dit à bientôt.</i
-                >
-              </p>
-            </div>
-            <div
-              class="w-element c1689bek cjzrt62 c10fpwu0 c12jzap8 ce2hl9k c1n5qn6m c17m7abg cnxdsf7 c1vkuhig c17xdxcm c4rciov c1dedhyj"
-            >
-              <div class="w-element cw49wdu">
-                <div
-                  class="w-element c1ke3kqk czny7rr c1hciw5m cgqfyws c7t57jj c7rpx6l cncurj cg8ambb cu9whn5 c1c0028i c1b7hj2h c1yi09dh c1goivrr c76sx6x c2gl2ma c1i5bzl8 cb2lzu1 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 c1rw5le3 cqjpmqm cw49wdu cnwadl chtpyyn cn34f72 cpc5ree"
-                >
-                  <img
-                    alt=""
-                    width="2350"
-                    height="2350"
-                    src="/assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp"
-                    class="w-image c1goivrr c76sx6x c2gl2ma c1ixucuv c1ggf0me cbazasa cqnbe02 c1t0y54z cdd4ntq co8kxqe cqjpmqm chtpyyn"
-                    sizes="100vw"
-                    srcset="
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp   16w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp   32w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp   48w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp   64w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp   96w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp  128w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp  256w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp  384w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp  640w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp  750w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp  828w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp 1080w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp 1200w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp 1920w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp 2048w,
-                      /assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp 3840w
-                    "
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              <div class="w-element crbwc6y c17akzj5 c1w3fmxx c1n5qn6m">
-                <div
-                  class="w-element c1goivrr c76sx6x c2gl2ma c1i5bzl8 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 c1rw5le3 cqjpmqm chtpyyn c989f1w cyar4m1"
-                >
-                  <h3
-                    class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1hidq9i c11kqscp c1sqo5he c11guce c1hutbvv ctq2apq cs8q988"
-                  >
-                    Les mentors
-                  </h3>
-                  <p
-                    class="w-element c11guce clvwzc4 c110jrb3 c1v8xkzn cfo98zl"
-                  >
-                    Nous arborons aujourd&#x27;hui un verger de petits fruits et
-                    une crêperie de style « repas à la ferme » qui n’existerait
-                    pas sans le travail des bâtisseurs nous ayant précédés.
-                    C’est pour cette raison que notre gratitude sera pour
-                    toujours dirigée envers Johanne, Daniel, Mélissa, Julien,
-                    Fannie et Michel. Merci de nous avoir accueillis et de nous
-                    avoir fait confiance depuis les premières étapes du
-                    repreneuriat. Merci d’être, à ce jour, à nos côtés.
-                  </p>
-                </div>
-                <div
-                  class="w-element c1goivrr c76sx6x c2gl2ma c1i5bzl8 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 c1rw5le3 cqjpmqm chtpyyn c989f1w cyar4m1"
-                >
-                  <h3
-                    class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1hidq9i c11kqscp c1sqo5he c11guce c1hutbvv ctq2apq cs8q988"
-                  >
-                    La communauté
-                  </h3>
-                  <p class="w-element c11guce clvwzc4 c110jrb3 cfo98zl">
-                    Le rêve se dévoile dans un hameau au nord de Ripon, une
-                    municipalité de 1 800 habitants située dans la Petite
-                    Nation. L’expérience et la nourriture offerte sur le site ne
-                    pourraient exister sans le soutien des bénévoles et des
-                    entrepreneurs qui ont à cœur la réussite de l’aventure.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <p
-              class="w-element c11guce clvwzc4 c1pl9ggt cdxy9ig cx8v6om cs8q988 cfo98zl c178f0tx"
-            >
-              <i class="w-element c1pl9ggt"
-                >Oréflore, c’est un mot parmi tant d’autres qui porte les
-                moments vécus avec celles et ceux prenant part à notre
-                quotidien. C’en est un, aussi, qui transporte des valeurs
-                rassembleuses et pleines d’espérance. C’est un nouveau chapitre
-                qui se rédige lentement, pour nourrir une histoire qui, un jour,
-                nous dépassera.</i
-              >..
-            </p>
+    <!-- HEADER -->
+    <header>
+      <div class="container">
+        <nav>
+          <a href="#" class="nav-logo" aria-label="Ferme Oréflore">Ferme Oréflore</a>
+          <div class="nav-links" id="nav-links">
+            <a href="#histoire">À propos</a>
+            <a href="#activites">Activités</a>
+            <a href="#visitez">Planifier une visite</a>
+            <a href="#rejoindre">Coordonnées</a>
           </div>
-        </section>
-        <section
-          id="activites"
-          class="w-element c1rgwlg9 c1rw5le3 c1odr98m cvsix04 c1368xl8 c9spinp"
-        >
-          <div
-            class="w-element c1xib9av c2pxh6r cssor0m c6xudsh c1iiz3ck c15hpn28 cbazasa c1ak1scj c1mmnaf1 cfoqxm6 c149mej1"
-          >
-            <div class="w-element c1ak1scj c1mmnaf1 c115ng1p c1ltxjyw cs8q988">
-              <h2
-                class="w-element c1e8n2ex cs2x0a2 c1lh6u00 ctyc4pv c1w5tbs9 c18zjm15 c12l1gwb c9h9jzj c3iskti cc228t1 cwj9tr3"
-              >
-                Vivre l&#x27;expérience à la ferme
-              </h2>
-              <p
-                class="w-element c11guce clvwzc4 cye3ufj cvmn3ch cfo98zl c1njzfwo"
-              >
-                <i class="w-element"
-                  >Nous offrons une variété d&#x27;activités dont vous pouvez
-                  profiter avec vos proches.</i
-                >
-              </p>
-            </div>
-            <div class="w-element c1689bek c1n5qn6m ce2hl9k c1qs9npu c1dedhyj">
-              <div
-                class="w-element c1goivrr c76sx6x c2gl2ma c1i5bzl8 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 cu3eop3 cqjpmqm chtpyyn c989f1w cyar4m1"
-              >
-                <h3
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c11kqscp c1sqo5he ctq2apq cs8q988 c11rdzg0 c1jbxr9a cbsi93c cvmn3ch c1u6vgwv"
-                >
-                  Autocueillette
-                </h3>
-                <p
-                  class="w-element c1e8n2ex cs2x0a2 c80szhm c1lh6u00 c11guce c1hutbvv ctq2apq cs8q988 c5yiiu"
-                >
-                  moments d&#x27;ouverture à venir
-                </p>
-                <p
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv c11guce clvwzc4 cs8q988 c1tpmmgz"
-                >
-                  Bien que nous proposions la camerise et la framboise,
-                  l&#x27;autocueillette concerne principalement le bleuet en
-                  corymbe.
-                </p>
-              </div>
-              <div
-                class="w-element c1goivrr c76sx6x c2gl2ma c1i5bzl8 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 cu3eop3 cqjpmqm c18mcd5s c989f1w cyar4m1"
-              >
-                <h3
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c11kqscp c1sqo5he ctq2apq cs8q988 c1u6vgwv"
-                >
-                  Kiosque à la ferme
-                </h3>
-                <p
-                  class="w-element c1e8n2ex cs2x0a2 c80szhm c1lh6u00 c11guce c1hutbvv ctq2apq cs8q988 c5yiiu"
-                >
-                  ouvert lors de l&#x27;autocueillette
-                </p>
-                <p
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv c11guce clvwzc4 cs8q988"
-                >
-                  Des fruits frais et des produits transformés sont offerts sur
-                  place.
-                </p>
-              </div>
-              <div
-                class="w-element c1goivrr c76sx6x c2gl2ma c1i5bzl8 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 cu3eop3 cqjpmqm chtpyyn c989f1w cyar4m1"
-              >
-                <h3
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv c11kqscp c1sqo5he ctq2apq cs8q988"
-                >
-                  Crêperie
-                </h3>
-                <p
-                  class="w-element c1e8n2ex cs2x0a2 c80szhm c1lh6u00 c11guce c1hutbvv ctq2apq cs8q988 c5yiiu"
-                >
-                  à chaque samedi
-                </p>
-                <p
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv c11guce clvwzc4 cs8q988"
-                >
-                  Venez rencontrer notre communauté, déguster des produits de
-                  boulange et profiter d&#x27;un repas à la ferme.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section
-          id="visitez"
-          class="w-element c1rgwlg9 c1q52s61 c1odr98m cvsix04 c11guce c5w9h66 c1368xl8 c9spinp"
-        >
-          <div
-            class="w-element c1xib9av c2pxh6r cssor0m c6xudsh c1iiz3ck c15hpn28 cbazasa c1ak1scj c1mmnaf1 cfoqxm6 c149mej1"
-          >
-            <div class="w-element c1ak1scj c1mmnaf1 c115ng1p c1ltxjyw cs8q988">
-              <h2
-                class="w-element c1e8n2ex cs2x0a2 c1lh6u00 ctyc4pv c1w5tbs9 c18zjm15 c12l1gwb c1sjgl3b c1ma69ie cc228t1 cwj9tr3"
-              >
-                Visitez nos lieux
-              </h2>
-            </div>
-            <div
-              class="w-element c1689bek cjzrt62 c18p593g c1ql6gax c10fpwu0 c1dedhyj"
-            >
-              <div class="w-element">
-                <div
-                  class="w-element c1goivrr c76sx6x c2gl2ma c1qkhbh2 c3ssi6r cqnbe02 c1t0y54z cdd4ntq co8kxqe c1qv4jde cqjpmqm chtpyyn c989f1w cyar4m1"
-                >
-                  <h3
-                    class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv c11kqscp c1sqo5he ctq2apq cfc2zwv cncrmsp"
-                  >
-                    Bleuetière
-                  </h3>
-                  <ul
-                    class="w-element ccjmfl9 c19w6q76 c17iswlw crbwc6y c17akzj5 c1w3fmxx cyi81um cfo98zl cuup29z"
-                  >
-                    <li class="w-element crbwc6y c19yjbjr c5e0246">
-                      <span class="w-element"
-                        ><i class="w-element"
-                          >Ouverture à l&#x27;été 2026.</i
-                        ></span
-                      >
-                    </li>
-                  </ul>
-                  <a
-                    href="https://maps.app.goo.gl/Rhb5mwbWUjTZCfWQ6"
-                    target="_blank"
-                    class="w-element c282ap c18j69jy cwp5y2x cruncw4 c12m1nya c1mz8v3i c1yglpno c17pfnxe c1rgwlg9 c1qd8ldj cl506ol c1h9uujc ct0zptq cxffywp c4d7w6c c1wv9bcy c11guce c1hutbvv ctq2apq c52ryn7 c1xqsfdh c1gh3gsn c1lvl4mq c1c1rnmq c2xkb47 chtpyyn c116pwk7 cxu9dc4 c19a56p4"
-                    >Obtenir les directions</a
-                  >
-                  <h3
-                    class="w-element c1cmxhwk cs2x0a2 c1lh6u00 c1dl8xhv c11kqscp c1sqo5he ctq2apq c1hcgpez c1msmz3o c17hvg4l ccguv7u cfc2zwv cvgsba5 cncrmsp"
-                  >
-                    Crêperie
-                  </h3>
-                  <ul
-                    class="w-element ccjmfl9 c19w6q76 c17iswlw crbwc6y c17akzj5 c1w3fmxx cyi81um cfo98zl cuup29z"
-                  >
-                    <li class="w-element crbwc6y c19yjbjr">
-                      <span class="w-element">S</span>amedi : 8:00 - 13:00
-                    </li>
-                  </ul>
-                  <a
-                    href="https://www.google.com/maps/place/Cr%C3%AAperie+Or%C3%A9flore/@45.8277695,-75.0973307,762m/data=!3m2!1e3!4b1!4m6!3m5!1s0x4cce4d4eef165947:0xca07451cbd71b1fc!8m2!3d45.8277658!4d-75.0947558!16s%2Fg%2F11zkr9qp72?entry=ttu&amp;g_ep=EgoyMDI2MDEyNS4wIKXMDSoASAFQAw%3D%3D"
-                    target="_blank"
-                    class="w-element c282ap c18j69jy cwp5y2x cruncw4 c12m1nya c1mz8v3i c1yglpno c17pfnxe c1rgwlg9 c1qd8ldj cl506ol c1h9uujc ct0zptq cxffywp c4d7w6c c1wv9bcy c11guce c1hutbvv ctq2apq c52ryn7 c1xqsfdh c1gh3gsn c1lvl4mq c1c1rnmq c2xkb47 chtpyyn c116pwk7 cxu9dc4 c19a56p4"
-                    >Obtenir les directions</a
-                  >
-                  <div
-                    class="w-element c1myoy3a c1204nks cl0990v ca1w4br c1w183hh cgnwgcg"
-                  >
-                    <p class="w-element c1kj9bde c5yiiu cfo98zl">
-                      Nos heures peuvent varier. Veuillez
-                      <a class="w-element link-contacter" href="#">nous contacter</a> ou suivre
-                      nos réseaux sociaux pour obtenir plus d&#x27;informations.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="w-element cw49wdu">
-                <div
-                  class="w-element c5m1qys czny7rr c1hciw5m cgqfyws c7t57jj c7rpx6l cncurj cg8ambb cu9whn5 c1c0028i c1b7hj2h c1yi09dh c1goivrr c76sx6x c2gl2ma ck6sq9x cji2x81 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 cu3eop3 cqjpmqm cw49wdu cnwadl chtpyyn cn34f72 cpc5ree"
-                >
-                  <img
-                    alt=""
-                    width="1344"
-                    height="768"
-                    src="/assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp"
-                    class="w-image c1goivrr c76sx6x c2gl2ma c1ixucuv c1ggf0me cbazasa cqnbe02 c1t0y54z cdd4ntq co8kxqe cqjpmqm ckeiuie chtpyyn"
-                    sizes="100vw"
-                    srcset="
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp   16w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp   32w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp   48w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp   64w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp   96w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp  128w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp  256w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp  384w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp  640w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp  750w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp  828w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp 1080w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp 1200w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp 1920w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp 2048w,
-                      /assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp 3840w
-                    "
-                    decoding="async"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+          <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </nav>
       </div>
-      <style>
-        @keyframes ws-scroll-animation-_R26_ {
-          from {
-            opacity: 0;
-          }
-        }
+    </header>
 
-        @media (prefers-reduced-motion: no-preference) {
-          [data-ws-animate-id="_R26_"]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])) {
-            animation-name: ws-scroll-animation-_R26_;
-            animation-fill-mode: backwards;
-            animation-play-state: paused;
-            animation-duration: 1ms;
-          }
-        }</style
-      ><noscript
-        ><style>
-          [data-ws-animate-id="_R26_"]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])),
-          [data-ws-animate-id="_R26_"]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > [data-ws-animate-id]
-            > :not(:is([data-ws-animate-id], [data-ws-no-initial-animation])) {
-            animation: none;
-          }
-        </style></noscript
-      >
-      <div data-ws-animate-id="_R26_" style="display: contents">
-        <section
-          id="rejoindre"
-          class="w-element c1rgwlg9 cu3eop3 c1odr98m cvsix04 c1368xl8 c9spinp"
-        >
-          <div
-            class="w-element c1xib9av c2pxh6r cssor0m c6xudsh c1iiz3ck c15hpn28 cbazasa c1ak1scj c1mmnaf1 cfoqxm6 c149mej1"
-          >
-            <div
-              class="w-element c1689bek c17unylt c18p593g c1ql6gax c10fpwu0 c1dedhyj"
-            >
-              <div
-                class="w-element c1goivrr c76sx6x c2gl2ma c1i5bzl8 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 c1rw5le3 cqjpmqm c11fgbtz chtpyyn c1hz0bg0 cri7pol"
-              >
-                <h3
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1hidq9i cn2b1q6 c1lvyhyq c18zjm15 c12l1gwb c9h9jzj"
-                >
-                  Infolettre
-                </h3>
-                <p
-                  class="w-element cs2x0a2 c1lh6u00 c1hidq9i c11guce clvwzc4 cvmn3ch c18kxkak cfc2zwv c9631kv c1vrjhvi"
-                >
-                  Pour connaître les avancées de notre projet, nous vous
-                  invitons à vous inscrire à notre infolettre.
-                </p>
-                <form
-                  id="form_inscription"
-                  class="w-element crbwc6y c17akzj5 c13s4jwt c10sisoi c1aiaecj"
-                  action=""
-                  enctype="application/x-www-form-urlencoded"
-                  method="post"
-                >
-                  <div class="w-element">
-                    <label
-                      for="Nom"
-                      class="w-element cjy9u0s c4d7w6c c1wv9bcy c11guce csrpweq ctq2apq cvmn3ch c1w3fmxx c17o8ezx c1nm6zaz cbsi93c c11rdzg0 c9vk00v cx6zer c2dbd10 c1k0mwsh"
-                      >Nom</label
-                    ><input
-                      type="text"
-                      id="nom"
-                      placeholder="Votre nom"
-                      required=""
-                      class="w-element c1oxw8e5 c1uzp40w chq5uaz c1jw1zw7 c1oum4eu c1wvmxo0 c1wjjcww cbazasa cphhhe5 c12m1nya c1mz8v3i c1yglpno c17pfnxe c1rgwlg9 c1qd8ldj c4h8c2g cjfj2a0 ct0zptq cxffywp c1gh3gsn c1lvl4mq c1c1rnmq c9vk00v cv8p7g5 cfo98zl c1ba3xwr cpbg8rp com7e0l c1j069gf c191emjq cxzwbor c9jj6mo"
-                      name="nom"
-                    />
-                  </div>
-                  <div class="w-element c1dl8xhv">
-                    <label
-                      for="Adresse courriel"
-                      class="w-element cjy9u0s c9vk00v c4d7w6c c1wv9bcy c11guce clvwzc4 ctq2apq"
-                      >Adresse courriel</label
-                    ><input
-                      type="email"
-                      id="courriel"
-                      placeholder="Votre courriel"
-                      required=""
-                      class="w-element c1oxw8e5 c1uzp40w chq5uaz c1jw1zw7 c1oum4eu c1wvmxo0 c1wjjcww cbazasa cphhhe5 c12m1nya c1mz8v3i c1yglpno c17pfnxe c1rgwlg9 c1qd8ldj c4h8c2g cjfj2a0 ct0zptq cxffywp c1gh3gsn c1lvl4mq c1c1rnmq cv8p7g5 cfo98zl c1ba3xwr cpbg8rp com7e0l c1j069gf c191emjq cxzwbor c9jj6mo"
-                      name="courriel"
-                    />
-                  </div>
-                  <div class="w-html-embed">
-                    <!-- 1. This part loads the Cloudflare security engine -->
-                    <script
-                      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-                      async
-                      defer
-                    ></script>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <div class="hero-card">
+          <h1>Ferme Oréflore</h1>
+          <p class="hero-subtitle"><em>Petits fruits et crêperie, à Ripon (QC).</em></p>
+          <a href="#visitez" class="btn btn-green">heures d'ouverture</a>
+        </div>
+      </div>
+      <div class="hero-credit">Photo par Ava Tyler (Unsplash)</div>
+    </section>
 
-                    <!-- 2. This part actually shows the Captcha box on your page -->
-                    <div
-                      class="cf-turnstile"
-                      data-sitekey="0x4AAAAAADg40iSCEKX7QERA"
-                      data-theme="light"
-                    ></div>
-                  </div>
-                  <button
-                    type="submit"
-                    id="inscrire"
-                    class="w-element c1oxw8e5 c1uzp40w chq5uaz c1oum4eu c15qonur cs2x0a2 c1vjnvka c1lh6u00 cftbmlg c1uaz3eg cugwk2s c1goivrr c76sx6x c2gl2ma c1ixucuv cbazasa c12m1nya c1mz8v3i c1yglpno c17pfnxe c1rgwlg9 c1q52s61 cl506ol c1h9uujc c17fznhg c1xn7liq c4d7w6c c1wv9bcy c11guce c5w9h66 c52ryn7 c1xqsfdh cqjpmqm c1gh3gsn c1lvl4mq c1c1rnmq chtpyyn c116pwk7 cgfpvu7"
-                  >
-                    M&#x27;inscrire
-                  </button>
-                  <p
-                    class="w-element cs8q988 cvqrtcj cjsx74p cdk92qb cahdvv9 c4mjiuh c43guuk"
-                  >
-                    <i class="w-element c15qonur cqx8j9 c1i5fsu"
-                      >Votre nom et votre adresse courriel serviront uniquement
-                      à l’envoi de notre infolettre. Vous pourrez vous
-                      désabonner en tout temps.</i
-                    >
-                  </p>
-                </form>
-              </div>
-              <div
-                class="w-element c1goivrr c76sx6x c2gl2ma c1i5bzl8 cqnbe02 c1t0y54z cdd4ntq co8kxqe c1rgwlg9 c1rw5le3 cqjpmqm chtpyyn c1hz0bg0 cri7pol"
-              >
-                <h3
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c1hidq9i cn2b1q6 c1lvyhyq c18zjm15 c12l1gwb c9h9jzj c1vrjhvi"
-                >
-                  Contactez-nous
-                </h3>
-                <p
-                  class="w-element c1e8n2ex cs2x0a2 c1lh6u00 c3ssi6r c11guce clvwzc4 c1fq38vw c1vrjhvi"
-                >
-                  Voici nos coordonnées si vous avez une question ou aimeriez
-                  organiser une visite avec vos proches.
-                </p>
-                <div
-                  class="w-element crbwc6y c17akzj5 c1w3fmxx c3ssi6r c1hgx8yh"
-                >
-                  <div class="w-element crbwc6y c17unylt c1ous01k">
-                    <div class="w-element c1d9jwf7 c11guce c1hutbvv">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-element c10t7lgg cpi3a6o"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                          class="w-element"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div class="w-element">
-                      <h4
-                        class="w-element ct0o4bi c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv ctq2apq c1i1fcsc"
-                      >
-                        Téléphone
-                      </h4>
-                      <p class="w-element c11guce clvwzc4 cfo98zl">
-                        (819) 592-1095
-                      </p>
-                    </div>
-                  </div>
-                  <div class="w-element crbwc6y c17unylt c1ous01k">
-                    <div class="w-element c1d9jwf7 c11guce c1hutbvv">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-element c10t7lgg cpi3a6o crbwc6y"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                          class="w-element"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div class="w-element">
-                      <h4
-                        class="w-element ct0o4bi c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv ctq2apq c1i1fcsc"
-                      >
-                        Courriel
-                      </h4>
-                      <p class="w-element c11guce clvwzc4 cfo98zl">
-                        info@oreflore.ca
-                      </p>
-                    </div>
-                  </div>
-                  <div class="w-element crbwc6y c17unylt c1ous01k">
-                    <div class="w-element c1d9jwf7 c11guce c1hutbvv">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-element c10t7lgg cpi3a6o"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"
-                          class="w-element"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div class="w-element">
-                      <h4
-                        class="w-element ct0o4bi c1e8n2ex cs2x0a2 c1lh6u00 c1dl8xhv ctq2apq c1i1fcsc"
-                      >
-                        Adresse
-                      </h4>
-                      <p class="w-element c11guce clvwzc4 cfo98zl">
-                        <span class="w-element">42, Montée Meunier</span
-                        ><br class="w-element" /><span class="w-element"
-                          >Ripon (Québec) J0V 1V0</span
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="w-element crbwc6y c1ous01k c1v8xkzn c1yy4w45 c17o8ezx c15qonur ct0zptq"
-                >
-                  <a
-                    href="https://www.facebook.com/ferme.oreflore"
-                    target="_blank"
-                    class="w-element c282ap c18j69jy cwp5y2x c11guce c1hutbvv c1gh3gsn c1lvl4mq c1c1rnmq c1v8xkzn chtpyyn civ2xh1 c1ndcum7"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                      class="w-element"
-                    >
-                      <path
-                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"
-                        class="w-element"
-                      ></path></svg></a
-                  ><a
-                    href="https://www.instagram.com/ferme.oreflore"
-                    target="_blank"
-                    class="w-element c282ap c18j69jy cwp5y2x c11guce c1hutbvv c1gh3gsn c1lvl4mq c1c1rnmq chtpyyn civ2xh1 c1ndcum7"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                      class="w-element"
-                    >
-                      <path
-                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
-                        class="w-element"
-                      ></path></svg
-                  ></a>
-                </div>
-              </div>
+    <!-- NOTRE HISTOIRE -->
+    <section id="histoire" class="section section-beige">
+      <div class="container">
+        <div class="section-heading">
+          <h2 style="color: var(--brown);">Notre histoire</h2>
+          <p class="histoire-intro">
+            <em>À la confluence de l'opportunisme et de la spontanéité,
+            Oréflore prend naissance dans un lieu animé par le désir de
+            renouveler les façons d'habiter et de vivre le territoire.
+            Prenant fièrement sa place au sein des Moulins de Ripon,
+            l'initiative s'émancipe grâce aux efforts et au soutien de sa
+            communauté. Pour l'instant, nous sommes reconnaissants
+            d'avoir captivé votre attention. Pour la suite, on vous
+            dit à bientôt.</em>
+          </p>
+        </div>
+
+        <div class="histoire-grid">
+          <div class="card-photo">
+            <img
+              src="/assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp"
+              alt=""
+              width="2350"
+              height="2350"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="histoire-cards">
+            <div class="card">
+              <h3>Les mentors</h3>
+              <p>Nous arborons aujourd'hui un verger de petits fruits et
+              une crêperie de style « repas à la ferme » qui n'existerait
+              pas sans le travail des bâtisseurs nous ayant précédés.
+              C'est pour cette raison que notre gratitude sera pour
+              toujours dirigée envers Johanne, Daniel, Mélissa, Julien,
+              Fannie et Michel. Merci de nous avoir accueillis et de nous
+              avoir fait confiance depuis les premières étapes du
+              repreneuriat. Merci d'être, à ce jour, à nos côtés.</p>
+            </div>
+            <div class="card">
+              <h3>La communauté</h3>
+              <p>Le rêve se dévoile dans un hameau au nord de Ripon, une
+              municipalité de 1 800 habitants située dans la Petite
+              Nation. L'expérience et la nourriture offerte sur le site ne
+              pourraient exister sans le soutien des bénévoles et des
+              entrepreneurs qui ont à cœur la réussite de l'aventure.</p>
             </div>
           </div>
-        </section>
-      </div>
-      <footer
-        class="w-element c1rgwlg9 c16lrum c12m3346 c119m0c0 c11guce c5w9h66"
-      >
-        <p class="w-element c1j6vgey c4nq40l cygpo25 c1ry8r3e cs8q988 c12qcpsf">
-          © 2026 Ferme Oréflore S.E.N.C. Tous droits réservés.
+        </div>
+
+        <p class="histoire-closing">
+          <em>Oréflore, c'est un mot parmi tant d'autres qui porte les
+          moments vécus avec celles et ceux prenant part à notre
+          quotidien. C'en est un, aussi, qui transporte des valeurs
+          rassembleuses et pleines d'espérance. C'est un nouveau chapitre
+          qui se rédige lentement, pour nourrir une histoire qui, un jour,
+          nous dépassera.</em>..
         </p>
-      </footer>
-    </div>
-    <script id="vike_pageContext" type="application/json">
-      {
-        "_urlRewrite": null,
-        "pageId": "/pages/index",
-        "routeParams": {},
-        "data": {
-          "url": "https://url/",
-          "system": {
-            "params": {},
-            "search": {},
-            "origin": "https://url",
-            "pathname": "/"
-          },
-          "resources": {},
-          "pageMeta": {
-            "title": "Ferme Oréflore - Ripon (Québec)",
-            "description": "Autocueillette de bleuets et crêperie située à Ripon, en Outaouais.",
-            "excludePageFromSearch": false,
-            "language": "fr-CA",
-            "socialImageAssetName": "!undefined",
-            "socialImageUrl": "!undefined",
-            "status": "!undefined",
-            "redirect": "!undefined",
-            "content": "!undefined",
-            "custom": []
+      </div>
+    </section>
+
+    <!-- ACTIVITÉS -->
+    <section id="activites" class="section section-cream">
+      <div class="container">
+        <div class="section-heading">
+          <h2 style="color: var(--brown);">Vivre l'expérience à la ferme</h2>
+          <p><em>Nous offrons une variété d'activités dont vous pouvez profiter avec vos proches.</em></p>
+        </div>
+        <div class="activites-grid">
+          <div class="card">
+            <h3>Autocueillette</h3>
+            <p class="card-label">moments d'ouverture à venir</p>
+            <p>Bien que nous proposions la camerise et la framboise,
+            l'autocueillette concerne principalement le bleuet en corymbe.</p>
+          </div>
+          <div class="card">
+            <h3>Kiosque à la ferme</h3>
+            <p class="card-label">ouvert lors de l'autocueillette</p>
+            <p>Des fruits frais et des produits transformés sont offerts sur place.</p>
+          </div>
+          <div class="card">
+            <h3>Crêperie</h3>
+            <p class="card-label">à chaque samedi</p>
+            <p>Venez rencontrer notre communauté, déguster des produits de
+            boulange et profiter d'un repas à la ferme.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISITEZ NOS LIEUX -->
+    <section id="visitez" class="section section-green">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Visitez nos lieux</h2>
+        </div>
+        <div class="visitez-grid">
+          <div>
+            <div class="card">
+              <h3>Bleuetière</h3>
+              <ul class="hours-list">
+                <li><em>Ouverture à l'été 2026.</em></li>
+              </ul>
+              <a
+                href="https://maps.app.goo.gl/Rhb5mwbWUjTZCfWQ6"
+                target="_blank"
+                class="btn btn-white"
+              >Obtenir les directions</a>
+
+              <h3 class="h3-separator">Crêperie</h3>
+              <ul class="hours-list">
+                <li>Samedi : 8:00 - 13:00</li>
+              </ul>
+              <a
+                href="https://www.google.com/maps/place/Cr%C3%AAperie+Or%C3%A9flore/@45.8277695,-75.0973307,762m/data=!3m2!1e3!4b1!4m6!3m5!1s0x4cce4d4eef165947:0xca07451cbd71b1fc!8m2!3d45.8277658!4d-75.0947558!16s%2Fg%2F11zkr9qp72?entry=ttu&amp;g_ep=EgoyMDI2MDEyNS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                class="btn btn-white"
+              >Obtenir les directions</a>
+
+              <div class="hours-note">
+                <p>Nos heures peuvent varier. Veuillez
+                <a href="#rejoindre">nous contacter</a> ou suivre
+                nos réseaux sociaux pour obtenir plus d'informations.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="visitez-photo">
+            <div class="card-photo card-photo-tilt" style="height:100%;">
+              <img
+                src="/assets/Untitled-1_rOFMfY443QkWys0EpCmDb.webp"
+                alt=""
+                width="1344"
+                height="768"
+                loading="lazy"
+                decoding="async"
+                style="height:100%; object-fit:cover;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COORDONNÉES -->
+    <section id="rejoindre" class="section section-beige">
+      <div class="container">
+        <div class="rejoindre-grid">
+
+          <!-- Infolettre -->
+          <div class="card">
+            <h3>Infolettre</h3>
+            <p>Pour connaître les avancées de notre projet, nous vous
+            invitons à vous inscrire à notre infolettre.</p>
+            <form id="form_inscription" action="" method="post" enctype="application/x-www-form-urlencoded">
+              <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
+              </div>
+              <div class="form-group">
+                <label for="courriel">Adresse courriel</label>
+                <input type="email" id="courriel" name="courriel" placeholder="Votre courriel" required />
+              </div>
+              <div>
+                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADg40iSCEKX7QERA" data-theme="light"></div>
+              </div>
+              <button type="submit" id="inscrire" class="btn-submit">M'inscrire</button>
+              <p class="form-note">
+                <em>Votre nom et votre adresse courriel serviront uniquement
+                à l'envoi de notre infolettre. Vous pourrez vous
+                désabonner en tout temps.</em>
+              </p>
+            </form>
+          </div>
+
+          <!-- Contactez-nous -->
+          <div class="card">
+            <h3>Contactez-nous</h3>
+            <p>Voici nos coordonnées si vous avez une question ou aimeriez
+            organiser une visite avec vos proches.</p>
+            <div class="contact-list">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4>Téléphone</h4>
+                  <p>(819) 592-1095</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                  </svg>
+                </div>
+                <div>
+                  <h4>Courriel</h4>
+                  <p>info@oreflore.ca</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4>Adresse</h4>
+                  <p>42, Montée Meunier<br />Ripon (Québec) J0V 1V0</p>
+                </div>
+              </div>
+            </div>
+            <div class="social-links">
+              <a href="https://www.facebook.com/ferme.oreflore" target="_blank" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/ferme.oreflore" target="_blank" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 Ferme Oréflore S.E.N.C. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+      const toggle = document.getElementById('nav-toggle');
+      const links  = document.getElementById('nav-links');
+      toggle.addEventListener('click', () => links.classList.toggle('open'));
+      links.querySelectorAll('a').forEach(a =>
+        a.addEventListener('click', () => links.classList.remove('open'))
+      );
+    </script>
+
+    <script>
+      // Navbar shrink on scroll
+      const header = document.querySelector('header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 60);
+      }, { passive: true });
+
+      // Active nav link via IntersectionObserver
+      const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+      const activeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navAnchors.forEach(a => a.classList.remove('active'));
+            const match = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+            if (match) match.classList.add('active');
           }
-        }
-      }
+        });
+      }, { rootMargin: '-40% 0px -50% 0px' });
+
+      document.querySelectorAll('section[id]').forEach(el => activeObserver.observe(el));
     </script>
-    <script id="vike_globalContext" type="application/json">
-      {}
+
+    <script>
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('section').forEach(el => {
+        el.classList.add('reveal');
+        revealObserver.observe(el);
+      });
     </script>
-    <script
-      src="/assets/entries/entry-server-routing.Dgo69g_j.js"
-      type="module"
-      async
-    ></script>
-    <link
-      rel="modulepreload"
-      href="/assets/entries/pages_index.Ds2cM4GR.js"
-      as="script"
-      type="text/javascript"
-    /><link
-      rel="modulepreload"
-      href="/assets/chunks/chunk-ckwbz45p.js"
-      as="script"
-      type="text/javascript"
-    />
+
   </body>
 </html>
