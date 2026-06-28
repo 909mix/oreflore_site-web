@@ -512,7 +512,7 @@
           gap: 2rem;
         }
         .visitez-grid { max-width: 500px; }
-        .visitez-photo { min-height: 16rem; }
+        .visitez-photo { min-height: 16rem; display: flex; justify-content: center; }
         .card-photo-tilt { transform: rotate(-2deg); }
       }
 
@@ -534,7 +534,8 @@
           box-shadow: 0 4px 12px rgba(0,0,0,.08);
           z-index: 40;
         }
-        .nav-toggle { display: block; }
+        nav { justify-content: center; position: relative; }
+        .nav-toggle { display: block; position: absolute; right: 0; }
       }
 
       /* === SCROLL REVEAL === */
