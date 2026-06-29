@@ -4,19 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/assets/icone_3.png" />
+    <link rel="apple-touch-icon" href="/assets/icone_3.png" />
+    <link rel="canonical" href="https://oreflore.ca" />
     <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" /></noscript>
     <meta property="og:url" content="https://oreflore.ca" />
     <meta property="og:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ferme Oréflore" />
     <meta name="description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
     <meta property="og:description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
+    <meta property="og:image" content="https://oreflore.ca/assets/hero.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ferme Oréflore - Ripon (Québec)" />
+    <meta name="twitter:description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
+    <meta name="twitter:image" content="https://oreflore.ca/assets/hero.webp" />
     <title>Ferme Oréflore - Ripon, QC</title>
     <script type="application/ld+json">
-      { "@context": "https://schema.org", "@type": "WebSite", "name": "Ferme Oréflore" }
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Ferme Oréflore",
+        "url": "https://oreflore.ca",
+        "telephone": "+18195921095",
+        "image": "https://oreflore.ca/assets/hero.webp",
+        "description": "Autocueillette de bleuets et crêperie située à Ripon, en Outaouais.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "42, Montée Meunier",
+          "addressLocality": "Ripon",
+          "addressRegion": "QC",
+          "postalCode": "J0V 1V0",
+          "addressCountry": "CA"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "08:00",
+            "closes": "13:00",
+            "name": "Crêperie"
+          }
+        ]
+      }
     </script>
     <style>
       /* === RESET === */
@@ -48,7 +82,7 @@
         line-height: 1.25;
       }
 
-      img { display: block; max-width: 100%; }
+      img { display: block; max-width: 100%; height: auto; }
       a { color: inherit; }
       ul { list-style: none; }
 
@@ -218,7 +252,7 @@
       /* === HERO === */
       .hero {
         position: relative;
-        min-height: 100vh;
+        min-height: 100dvh;
         background-color: var(--beige);
         display: flex;
         align-items: center;
@@ -249,7 +283,7 @@
         flex-direction: column;
         align-items: center;
       }
-      .hero-seal {
+.hero-seal {
         width: 13rem;
         position: relative;
         z-index: 2;
@@ -262,15 +296,17 @@
       }
 
       .hero-card .btn {
-        font-family: inherit;
+        font-family: 'Cormorant Garamond', serif;
         font-weight: 700;
         background: rgba(255, 243, 210, 0.88);
         color: var(--brown);
         border: 2px solid #634017;
         border-radius: 9999px;
         letter-spacing: 0.2em;
-        font-size: 0.72rem;
-        padding: 0.65rem 2.25rem;
+        font-size: 0.85rem;
+        line-height: 1;
+        padding: 0.65rem 1.1rem;
+        text-shadow: 0 0 0.6px var(--brown);
         transition: background-color 0.3s, border-color 0.3s;
       }
       .hero-card .btn:hover {
@@ -502,6 +538,20 @@
         text-align: center;
         font-size: 0.875rem;
       }
+      .footer-contact {
+        margin-bottom: 0.5rem;
+        color: rgba(255,255,255,0.70);
+      }
+      .footer-top {
+        display: inline-block;
+        margin-top: 1rem;
+        color: rgba(255,255,255,0.50);
+        text-decoration: none;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+        transition: color 0.2s;
+      }
+      .footer-top:hover { color: #fff; }
 
       /* === RESPONSIVE === */
       @media (max-width: 991px) {
@@ -538,6 +588,9 @@
         .nav-toggle { display: block; position: absolute; right: 0; }
       }
 
+      /* === SCROLL OFFSET (sticky header) === */
+      section[id] { scroll-margin-top: 40px; }
+
       /* === SCROLL REVEAL === */
       .reveal {
         opacity: 0;
@@ -560,8 +613,8 @@
           <div class="nav-links" id="nav-links">
             <a href="#histoire">À propos</a>
             <a href="#activites">Activités</a>
-            <a href="#visitez">Planifier une visite</a>
-            <a href="#rejoindre">Coordonnées</a>
+            <a href="#visitez">Nous visiter</a>
+            <a href="#rejoindre">Pour nous joindre</a>
           </div>
           <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -575,9 +628,9 @@
     <!-- HERO -->
     <section id="hero" class="hero">
       <div class="hero-inner">
-        <img src="/assets/seal.webp" alt="Ferme Oréflore" class="hero-seal" />
-        <div class="hero-card">
-          <a href="#visitez" class="btn btn-green">heures d'ouverture</a>
+        <img src="/assets/seal.webp" alt="Ferme Oréflore" class="hero-seal" width="500" height="500" />
+<div class="hero-card">
+          <a href="#visitez" class="btn btn-green">Heures d'ouverture</a>
         </div>
       </div>
     </section>
@@ -602,7 +655,7 @@
         <div class="histoire-grid">
           <div class="card-photo">
             <img
-              src="/assets/unnamed_JZ_scnyD_oxNXaMxQp7uW.webp"
+              src="/assets/histoire.webp"
               alt=""
               width="2350"
               height="2350"
@@ -639,7 +692,7 @@
           quotidien. C'en est un, aussi, qui transporte des valeurs
           rassembleuses et pleines d'espérance. C'est un nouveau chapitre
           qui se rédige lentement, pour nourrir une histoire qui, un jour,
-          nous dépassera.</em>..
+          nous dépassera.</em>.
         </p>
       </div>
     </section>
@@ -654,7 +707,7 @@
         <div class="activites-grid">
           <div class="card">
             <h3>Autocueillette</h3>
-            <p class="card-label">moments d'ouverture à venir</p>
+            <p class="card-label">les dimanches · dates à venir</p>
             <p>Bien que nous proposions la camerise et la framboise,
             l'autocueillette concerne principalement le bleuet en corymbe.</p>
           </div>
@@ -665,7 +718,7 @@
           </div>
           <div class="card">
             <h3>Crêperie</h3>
-            <p class="card-label">à chaque samedi</p>
+            <p class="card-label">tous les samedis</p>
             <p>Venez rencontrer notre communauté, déguster des produits de
             boulange et profiter d'un repas à la ferme.</p>
           </div>
@@ -684,7 +737,7 @@
             <div class="card">
               <h3>Bleuetière</h3>
               <ul class="hours-list">
-                <li><em>Ouverture à l'été 2026.</em></li>
+                <li><em>Les dimanches · dates à venir</em></li>
               </ul>
               <a
                 href="https://maps.app.goo.gl/Rhb5mwbWUjTZCfWQ6"
@@ -729,6 +782,9 @@
     <!-- COORDONNÉES -->
     <section id="rejoindre" class="section section-beige">
       <div class="container">
+        <div class="section-heading">
+          <h2>Pour nous joindre</h2>
+        </div>
         <div class="rejoindre-grid">
 
           <!-- Infolettre -->
@@ -798,12 +854,12 @@
               </div>
             </div>
             <div class="social-links">
-              <a href="https://www.facebook.com/ferme.oreflore" target="_blank" aria-label="Facebook">
+              <a href="https://www.facebook.com/ferme.oreflore" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                   <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
                 </svg>
               </a>
-              <a href="https://www.instagram.com/ferme.oreflore" target="_blank" aria-label="Instagram">
+              <a href="https://www.instagram.com/ferme.oreflore" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                   <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
                 </svg>
@@ -817,7 +873,11 @@
 
     <!-- FOOTER -->
     <footer>
-      <p>© 2026 Ferme Oréflore S.E.N.C. Tous droits réservés.</p>
+      <div class="container">
+        <p class="footer-contact">(819) 592-1095 · 42, Montée Meunier, Ripon (Québec) J0V 1V0</p>
+        <p>© 2026 Ferme Oréflore S.E.N.C. Tous droits réservés.</p>
+        <a href="#" class="footer-top">↑ Retour en haut</a>
+      </div>
     </footer>
 
     <script>
@@ -865,7 +925,10 @@
       // Nav toggle
       const toggle = document.getElementById('nav-toggle');
       const links  = document.getElementById('nav-links');
-      toggle.addEventListener('click', () => links.classList.toggle('open'));
+      toggle.addEventListener('click', () => {
+        links.classList.toggle('open');
+        toggle.setAttribute('aria-label', links.classList.contains('open') ? 'Fermer le menu' : 'Ouvrir le menu');
+      });
       links.querySelectorAll('a').forEach(a =>
         a.addEventListener('click', () => links.classList.remove('open'))
       );
@@ -920,7 +983,7 @@
           }
         });
       }, { threshold: 0.08 });
-      document.querySelectorAll('section:not(#histoire)').forEach(el => {
+      document.querySelectorAll('section:not(#histoire):not(#hero)').forEach(el => {
         el.classList.add('reveal');
         revealObserver.observe(el);
       });
