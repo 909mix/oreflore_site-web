@@ -49,6 +49,13 @@
             "opens": "08:00",
             "closes": "13:00",
             "name": "Crêperie"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "10:00",
+            "closes": "16:00",
+            "name": "Autocueillette"
           }
         ]
       }
@@ -284,7 +291,7 @@
         flex-direction: column;
         align-items: center;
       }
-.hero-seal {
+      .hero-seal {
         width: 13rem;
         position: relative;
         z-index: 2;
@@ -304,7 +311,7 @@
         border: 2px solid #634017;
         border-radius: 9999px;
         letter-spacing: 0.2em;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         line-height: 1;
         padding: 0.65rem 1.1rem;
         text-shadow: 0 0 0.6px var(--brown);
@@ -367,6 +374,7 @@
         font-style: italic;
         font-size: 1rem;
         margin: 0.5rem 0 0.75rem;
+        line-height: 1.1;
       }
       .activites-grid p:last-child {
         color: var(--text-mid);
@@ -489,12 +497,15 @@
         transition: background-color 0.3s;
       }
       .btn-submit:hover { background: var(--green-dark); }
+      .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
       .form-note {
         margin-top: 0.4rem;
+        margin-bottom: 0;
         font-size: 0.8rem;
         color: #a8a8a8;
         font-style: italic;
         line-height: 1.4;
+        text-align: center;
       }
 
       /* Contact */
@@ -535,17 +546,17 @@
       footer {
         background: var(--text);
         color: #fff;
-        padding: 2.5rem 0;
+        padding: 0.01rem 0 0.75rem;
         text-align: center;
         font-size: 0.875rem;
       }
       .footer-contact {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         color: rgba(255,255,255,0.70);
       }
       .footer-top {
         display: inline-block;
-        margin-top: 1rem;
+        margin-top: 0.75rem;
         color: rgba(255,255,255,0.50);
         text-decoration: none;
         font-size: 0.8rem;
@@ -590,7 +601,7 @@
       }
 
       /* === SCROLL OFFSET (sticky header) === */
-      section[id] { scroll-margin-top: 40px; }
+      section[id] { scroll-margin-top: var(--header-h, 64px); }
 
       /* === SCROLL REVEAL === */
       .reveal {
@@ -602,9 +613,32 @@
         opacity: 1;
         transform: translateY(0);
       }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; }
+      }
+
+      /* === SKIP LINK === */
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0.5rem;
+        z-index: 100;
+        background: var(--green);
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.875rem;
+        text-decoration: none;
+      }
+      .skip-link:focus { left: 0.5rem; }
+
+      footer .social-links { padding-top: 0; margin-top: 0.75rem; margin-bottom: 0.75rem; }
+      footer .social-links a { color: rgba(255,255,255,0.65); }
+      footer .social-links a:hover { color: #fff; }
     </style>
   </head>
   <body>
+    <a href="#histoire" class="skip-link">Aller au contenu</a>
 
     <!-- HEADER -->
     <header>
@@ -615,7 +649,7 @@
             <a href="#histoire">À propos</a>
             <a href="#activites">Activités</a>
             <a href="#visitez">Nous visiter</a>
-            <a href="#rejoindre">Pour nous joindre</a>
+            <a href="#contact">Pour nous joindre</a>
           </div>
           <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -708,14 +742,14 @@
         <div class="activites-grid">
           <div class="card">
             <h3>Autocueillette</h3>
-            <p class="card-label">les dimanches · dates à venir</p>
-            <p>Bien que nous proposions la camerise et la framboise,
-            l'autocueillette concerne principalement le bleuet en corymbe.</p>
+            <p class="card-label">les dimanches<br><span style="font-size:0.85em;">à partir de mi-juillet</span></p>
+            <p>Bien que la camerise soit offerte durant le mois de juin,
+            l'autocueillette ne concerne que le bleuet en corymbe.</p>
           </div>
           <div class="card">
             <h3>Kiosque à la ferme</h3>
             <p class="card-label">ouvert lors de l'autocueillette</p>
-            <p>Des fruits frais et des produits transformés sont offerts sur place.</p>
+            <p>Des bleuets frais et des produits transformés sont offerts sur place.</p>
           </div>
           <div class="card">
             <h3>Crêperie</h3>
@@ -738,7 +772,8 @@
             <div class="card">
               <h3>Bleuetière</h3>
               <ul class="hours-list">
-                <li><em>Les dimanches · dates à venir</em></li>
+                <li>Dimanches, 10h - 16h</li>
+                <li><em style="font-size:0.85em;">À partir de mi-juillet</em></li>
               </ul>
               <a
                 href="https://maps.app.goo.gl/Rhb5mwbWUjTZCfWQ6"
@@ -748,7 +783,7 @@
 
               <h3 class="h3-separator">Crêperie</h3>
               <ul class="hours-list">
-                <li>Samedi : 8:00 - 13:00</li>
+                <li>Samedis, 8h - 13h</li>
               </ul>
               <a
                 href="https://www.google.com/maps/place/Cr%C3%AAperie+Or%C3%A9flore/@45.8277695,-75.0973307,762m/data=!3m2!1e3!4b1!4m6!3m5!1s0x4cce4d4eef165947:0xca07451cbd71b1fc!8m2!3d45.8277658!4d-75.0947558!16s%2Fg%2F11zkr9qp72?entry=ttu&amp;g_ep=EgoyMDI2MDEyNS4wIKXMDSoASAFQAw%3D%3D"
@@ -758,7 +793,7 @@
 
               <div class="hours-note">
                 <p>Nos heures peuvent varier. Veuillez
-                <a href="#rejoindre">nous contacter</a> ou suivre
+                <a href="#contact">nous contacter</a> ou suivre
                 nos réseaux sociaux pour obtenir plus d'informations.</p>
               </div>
             </div>
@@ -781,7 +816,7 @@
     </section>
 
     <!-- COORDONNÉES -->
-    <section id="rejoindre" class="section section-beige">
+    <section id="contact" class="section section-beige">
       <div class="container">
         <div class="section-heading">
           <h2>Pour nous joindre</h2>
@@ -803,7 +838,7 @@
                 <input type="email" id="courriel" name="courriel" placeholder="Votre courriel" required />
               </div>
               <div id="turnstile-container">
-                <div class="cf-turnstile" data-sitekey="0x4AAAAAADg40iSCEKX7QERA" data-theme="light"></div>
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADg40iSCEKX7QERA" data-theme="light" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
               </div>
               <button type="submit" id="inscrire" class="btn-submit">M'inscrire</button>
               <p class="form-note">
@@ -854,18 +889,6 @@
                 </div>
               </div>
             </div>
-            <div class="social-links">
-              <a href="https://www.facebook.com/ferme.oreflore" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                </svg>
-              </a>
-              <a href="https://www.instagram.com/ferme.oreflore" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
-                </svg>
-              </a>
-            </div>
           </div>
 
         </div>
@@ -875,6 +898,18 @@
     <!-- FOOTER -->
     <footer>
       <div class="container">
+        <div class="social-links">
+          <a href="https://www.facebook.com/ferme.oreflore" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/ferme.oreflore" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+            </svg>
+          </a>
+        </div>
         <p class="footer-contact">(819) 592-1095 · 42, Montée Meunier, Ripon (Québec) J0V 1V0</p>
         <p>© 2026 Ferme Oréflore S.E.N.C. Tous droits réservés.</p>
         <a href="#" class="footer-top">↑ Retour en haut</a>
@@ -885,6 +920,22 @@
       // Form submission
       const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMnSU-hKPS9wNeWxwVgzkHNn8Th_eaoQYmpng3ZVUNLC0TFv6GKF0hAJCIsVJ6UL7UvA/exec';
 
+      function onTurnstileSuccess() {
+        const btn = document.getElementById('inscrire');
+        btn.disabled = false;
+        btn.textContent = "M'inscrire";
+      }
+      function onTurnstileExpired() {
+        const btn = document.getElementById('inscrire');
+        btn.disabled = true;
+        btn.textContent = 'Vérification expirée…';
+      }
+      function onTurnstileError() {
+        const btn = document.getElementById('inscrire');
+        btn.disabled = false;
+        btn.textContent = "M'inscrire";
+      }
+
       document.getElementById('form_inscription').addEventListener('submit', async function(e) {
         e.preventDefault();
         const form = e.target;
@@ -892,6 +943,12 @@
         const nom      = document.getElementById('nom').value.trim();
         const courriel = document.getElementById('courriel').value.trim();
         const token    = (form.querySelector('[name="cf-turnstile-response"]') || {}).value || '';
+
+        if (turnstileLoaded && !token) {
+          const note = form.querySelector('.form-note');
+          if (note) note.textContent = 'Veuillez compléter la vérification de sécurité avant de soumettre.';
+          return;
+        }
 
         btn.disabled    = true;
         btn.textContent = 'Inscription en cours…';
@@ -902,7 +959,7 @@
             mode   : 'no-cors',
             body   : new URLSearchParams({ nom, courriel, 'cf-turnstile-response': token }),
           });
-          form.innerHTML = '<p style="color:var(--green);padding:0.5rem 0;text-align:center;">Vous êtes maintenant inscrit.</p>';
+          form.innerHTML = '<p style="color:var(--green);padding:0.5rem 0 0.25rem;text-align:center;">Vous êtes maintenant inscrit.</p><p style="font-size:0.8rem;color:#a8a8a8;font-style:italic;text-align:center;line-height:1.4;">Si vous ne recevez pas de confirmation dans les prochains jours, écrivez-nous à <a href="mailto:info@oreflore.ca" style="color:inherit;">info@oreflore.ca</a>.</p>';
         } catch (err) {
           btn.disabled    = false;
           btn.textContent = "M'inscrire";
@@ -916,6 +973,16 @@
       document.getElementById('form_inscription').addEventListener('focusin', function() {
         if (turnstileLoaded) return;
         turnstileLoaded = true;
+        const btn = document.getElementById('inscrire');
+        btn.disabled = true;
+        btn.textContent = 'Vérification en cours…';
+        // Fallback: if Turnstile is blocked or never fires, re-enable after 8s
+        setTimeout(() => {
+          if (btn.disabled) {
+            btn.disabled = false;
+            btn.textContent = "M'inscrire";
+          }
+        }, 8000);
         const s = document.createElement('script');
         s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
         s.async = true;
@@ -939,6 +1006,11 @@
       window.addEventListener('scroll', () => {
         header.classList.toggle('scrolled', window.scrollY > 60);
       }, { passive: true });
+
+      // Keep scroll-margin-top in sync with actual header height
+      new ResizeObserver(() => {
+        document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+      }).observe(header);
 
       // Active nav link
       const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
@@ -987,18 +1059,25 @@
       const visitezImg = document.querySelector('.visitez-photo .card-photo img');
       if (visitezImg) visitezImg.addEventListener('load', matchVisitezPhotoHeight);
       matchVisitezPhotoHeight();
-      window.addEventListener('resize', matchVisitezPhotoHeight);
+      let resizeFrame;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(matchVisitezPhotoHeight);
+      });
 
-      // Scroll reveal
+      // Scroll reveal — bidirectional fade per element
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-          }
+          entry.target.classList.toggle('visible', entry.isIntersecting);
         });
       }, { threshold: 0.08 });
-      document.querySelectorAll('section:not(#histoire):not(#hero)').forEach(el => {
+
+      document.querySelectorAll(
+        '#histoire .section-heading, #histoire .card-photo, #histoire .card, #histoire .histoire-closing,' +
+        '#activites .section-heading, #activites .card,' +
+        '#visitez .section-heading, #visitez .card, #visitez .card-photo,' +
+        '#contact .section-heading, #contact .card'
+      ).forEach(el => {
         el.classList.add('reveal');
         revealObserver.observe(el);
       });
