@@ -953,6 +953,20 @@
       }, { rootMargin: '-40% 0px -50% 0px' });
       document.querySelectorAll('section[id]').forEach(el => activeObserver.observe(el));
 
+      // Smooth scroll without updating URL hash
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const hash = a.getAttribute('href');
+          e.preventDefault();
+          if (hash === '#') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            const target = document.querySelector(hash);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
       // Visitez photo height matching
       function matchVisitezPhotoHeight() {
         const card  = document.querySelector('.visitez-grid > div:first-child .card');
