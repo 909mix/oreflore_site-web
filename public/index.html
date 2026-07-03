@@ -8,7 +8,14 @@
     <link rel="canonical" href="https://oreflore.ca/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta name="theme-color" content="#5f7a5f" />
-    <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero.webp"
+      imagesrcset="/assets/hero-mobile.webp 900w, /assets/hero.webp 2000w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" />
@@ -18,16 +25,16 @@
     <meta property="og:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ferme Oréflore" />
-    <meta name="description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
-    <meta property="og:description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
+    <meta name="description" content="Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille." />
+    <meta property="og:description" content="Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille." />
     <meta property="og:image" content="https://oreflore.ca/assets/hero.webp" />
     <meta property="og:image:width" content="2000" />
     <meta property="og:image:height" content="945" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ferme Oréflore - Ripon (Québec)" />
-    <meta name="twitter:description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
+    <meta name="twitter:description" content="Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille." />
     <meta name="twitter:image" content="https://oreflore.ca/assets/hero.webp" />
-    <title>Ferme Oréflore - Ripon, QC</title>
+    <title>Ferme Oréflore | Autocueillette de bleuets, Ripon, Outaouais</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -36,7 +43,7 @@
         "url": "https://oreflore.ca",
         "telephone": "+18195921095",
         "image": "https://oreflore.ca/assets/hero.webp",
-        "description": "Autocueillette de bleuets et crêperie située à Ripon, en Outaouais.",
+        "description": "Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille.",
         "sameAs": [
           "https://www.facebook.com/ferme.oreflore",
           "https://www.instagram.com/ferme.oreflore"
@@ -259,8 +266,10 @@
         color: var(--text);
         padding: 0;
         flex-shrink: 0;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        align-items: center;
+        justify-content: center;
       }
       .nav-toggle svg { width: 1.5rem; height: 1.5rem; }
 
@@ -276,10 +285,15 @@
         content: '';
         position: absolute;
         inset: 0;
-        background-image: url('/assets/hero.webp');
+        background-image: url('/assets/hero-mobile.webp');
         background-size: cover;
         background-position: center;
         filter: sepia(15%) saturate(130%) brightness(105%) contrast(95%) blur(0.3px);
+      }
+      @media (min-width: 900px) {
+        .hero::before {
+          background-image: url('/assets/hero.webp');
+        }
       }
       .hero::after {
         content: '';
@@ -329,6 +343,10 @@
         font-size: 0.75rem;
         line-height: 1;
         padding: 0.65rem 1.1rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         text-shadow: 0 0 0.6px var(--brown);
         transition: background-color 0.3s, border-color 0.3s;
       }
@@ -480,6 +498,7 @@
       }
       .form-group input {
         width: 100%;
+        min-height: 44px;
         padding: 0.5rem 1rem;
         font-family: inherit;
         font-size: 0.875rem;
@@ -498,6 +517,7 @@
       .btn-submit {
         display: block;
         width: 100%;
+        min-height: 44px;
         padding: 0.75rem 2rem;
         background: var(--green);
         color: #fff;
@@ -554,6 +574,10 @@
         text-decoration: none;
         transition: color 0.3s;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
       }
       .social-links a:hover { color: var(--green-dark); }
 
@@ -612,7 +636,7 @@
           z-index: 40;
         }
         nav { justify-content: center; position: relative; }
-        .nav-toggle { display: block; position: absolute; right: 0; }
+        .nav-toggle { display: flex; position: absolute; right: 0; }
       }
 
       /* === SCROLL OFFSET (sticky header) === */
@@ -675,6 +699,7 @@
       </div>
     </header>
 
+    <main>
     <!-- HERO -->
     <section id="hero" class="hero">
       <div class="hero-inner">
@@ -730,9 +755,10 @@
               <h3>La communauté</h3>
               <p>Le rêve se dévoile dans un hameau au nord de Ripon, une
               municipalité de 1 800 habitants située dans la Petite
-              Nation. L'expérience et la nourriture offerte sur le site ne
-              pourraient exister sans le soutien des bénévoles et des
-              entrepreneurs qui ont à cœur la réussite de l'aventure.</p>
+              Nation, en Outaouais. L'expérience et la nourriture offerte
+              sur le site ne pourraient exister sans le soutien des
+              bénévoles et des entrepreneurs qui ont à cœur la réussite
+              de l'aventure.</p>
             </div>
           </div>
         </div>
@@ -918,6 +944,7 @@
         </div>
       </div>
     </section>
+    </main>
 
     <!-- FOOTER -->
     <footer>
