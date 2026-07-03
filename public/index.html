@@ -3,23 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/assets/icone_3.png" />
-    <link rel="apple-touch-icon" href="/assets/icone_3.png" />
-    <link rel="canonical" href="https://oreflore.ca" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="canonical" href="https://oreflore.ca/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta name="theme-color" content="#5f7a5f" />
     <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" /></noscript>
-    <meta property="og:url" content="https://oreflore.ca" />
+    <meta property="og:url" content="https://oreflore.ca/" />
     <meta property="og:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ferme Oréflore" />
     <meta name="description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
     <meta property="og:description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
     <meta property="og:image" content="https://oreflore.ca/assets/hero.webp" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="945" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta name="twitter:description" content="Autocueillette de bleuets et crêperie située à Ripon, en Outaouais." />
@@ -34,6 +37,10 @@
         "telephone": "+18195921095",
         "image": "https://oreflore.ca/assets/hero.webp",
         "description": "Autocueillette de bleuets et crêperie située à Ripon, en Outaouais.",
+        "sameAs": [
+          "https://www.facebook.com/ferme.oreflore",
+          "https://www.instagram.com/ferme.oreflore"
+        ],
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "42, Montée Meunier",
@@ -298,6 +305,14 @@
         margin-bottom: 1.5rem;
         filter: drop-shadow(0 2px 8px rgba(0,0,0,.35));
       }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+      }
       .hero-card {
         position: relative;
         z-index: 1;
@@ -420,17 +435,16 @@
       .hours-note p {
         font-style: italic;
         font-size: 0.92rem;
-        color: rgba(255,255,255,0.80);
+        color: #fff;
       }
       .hours-note a {
-        color: rgba(255,255,255,0.75);
+        color: #fff;
         text-decoration: underline;
         text-underline-offset: 2px;
-        text-decoration-color: rgba(255,255,255,0.40);
+        text-decoration-color: rgba(255,255,255,0.55);
       }
       .hours-note a:hover {
-        color: #fff;
-        text-decoration-color: rgba(255,255,255,0.80);
+        text-decoration-color: #fff;
       }
       .visitez-photo {
         min-height: 16rem;
@@ -478,6 +492,7 @@
       .form-group input:focus {
         outline: none;
         border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(94,126,100,0.35);
       }
       .cf-turnstile { margin: 0.5rem 0; }
       .btn-submit {
@@ -498,11 +513,11 @@
       }
       .btn-submit:hover { background: var(--green-dark); }
       .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
-      .form-note {
+      .rejoindre-grid .card p.form-note {
         margin-top: 0.4rem;
         margin-bottom: 0;
         font-size: 0.8rem;
-        color: #a8a8a8;
+        color: #6b6b6b;
         font-style: italic;
         line-height: 1.4;
         text-align: center;
@@ -651,7 +666,7 @@
             <a href="#visitez">Nous visiter</a>
             <a href="#contact">Pour nous joindre</a>
           </div>
-          <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" type="button">
+          <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
@@ -663,7 +678,8 @@
     <!-- HERO -->
     <section id="hero" class="hero">
       <div class="hero-inner">
-        <img src="/assets/seal.webp" alt="Ferme Oréflore" class="hero-seal" width="500" height="500" />
+        <img src="/assets/seal.webp" alt="" class="hero-seal" width="500" height="500" />
+        <h1 class="sr-only">Ferme Oréflore</h1>
 <div class="hero-card">
           <a href="#visitez" class="btn btn-green">Heures d'ouverture</a>
         </div>
@@ -691,9 +707,9 @@
           <div class="card-photo">
             <img
               src="/assets/histoire.webp"
-              alt=""
-              width="2350"
-              height="2350"
+              alt="L'équipe de la ferme Oréflore réunie derrière le comptoir de la crêperie, aux Moulins de Ripon"
+              width="1200"
+              height="1200"
               loading="lazy"
               decoding="async"
             />
@@ -725,9 +741,9 @@
           <em>Oréflore, c'est un mot parmi tant d'autres qui porte les
           moments vécus avec celles et ceux prenant part à notre
           quotidien. C'en est un, aussi, qui transporte des valeurs
-          rassembleuses et pleines d'espérance. C'est un nouveau chapitre
-          qui se rédige lentement, pour nourrir une histoire qui, un jour,
-          nous dépassera.</em>.
+          rassembleuses et pleines d'espérance. Nous rédigeons ce chapitre
+          avec soins, car nous savons que cette histoire, un jour, nous
+          dépassera.</em>
         </p>
       </div>
     </section>
@@ -803,9 +819,9 @@
             <div class="card-photo card-photo-tilt" style="height:100%;">
               <img
                 src="/assets/camerises.webp"
-                alt=""
-                width="1971"
-                height="2353"
+                alt="Une main tenant un panier de bleuets fraîchement cueillis dans un champ en fleurs"
+                width="1005"
+                height="1200"
                 loading="lazy"
                 decoding="async"
               />
@@ -847,6 +863,14 @@
                 désabonner en tout temps.</em>
               </p>
             </form>
+            <noscript>
+              <style>#form_inscription { display: none; }</style>
+              <p class="form-note">
+                L'inscription à l'infolettre nécessite JavaScript. Vous
+                pouvez aussi vous inscrire en écrivant à
+                <a href="mailto:info@oreflore.ca">info@oreflore.ca</a>.
+              </p>
+            </noscript>
           </div>
 
           <!-- Contactez-nous -->
@@ -994,11 +1018,16 @@
       const toggle = document.getElementById('nav-toggle');
       const links  = document.getElementById('nav-links');
       toggle.addEventListener('click', () => {
-        links.classList.toggle('open');
-        toggle.setAttribute('aria-label', links.classList.contains('open') ? 'Fermer le menu' : 'Ouvrir le menu');
+        const isOpen = links.classList.toggle('open');
+        toggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
       links.querySelectorAll('a').forEach(a =>
-        a.addEventListener('click', () => links.classList.remove('open'))
+        a.addEventListener('click', () => {
+          links.classList.remove('open');
+          toggle.setAttribute('aria-label', 'Ouvrir le menu');
+          toggle.setAttribute('aria-expanded', 'false');
+        })
       );
 
       // Navbar shrink on scroll
