@@ -16,11 +16,13 @@
       imagesizes="100vw"
       fetchpriority="high"
     />
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/lora-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/satisfy-latin.woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Satisfy&display=swap" /></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" /></noscript>
     <meta property="og:url" content="https://oreflore.ca/" />
     <meta property="og:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta property="og:type" content="website" />
@@ -34,7 +36,7 @@
     <meta name="twitter:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta name="twitter:description" content="Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille." />
     <meta name="twitter:image" content="https://oreflore.ca/assets/hero.webp" />
-    <title>Ferme Oréflore | Autocueillette de bleuets, Ripon, Outaouais</title>
+    <title>Accueil | Ferme Oréflore</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -78,6 +80,32 @@
       /* === RESET === */
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
+
+      /* === FONTS (self-hosted, latin subset — covers French accents) === */
+      @font-face {
+        font-family: 'Lora';
+        font-style: normal;
+        font-weight: 400 700;
+        font-display: optional;
+        src: url('/assets/fonts/lora-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+      }
+      @font-face {
+        font-family: 'Lora';
+        font-style: italic;
+        font-weight: 400 500;
+        font-display: optional;
+        src: url('/assets/fonts/lora-latin-italic.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+      }
+      @font-face {
+        font-family: 'Satisfy';
+        font-style: normal;
+        font-weight: 400;
+        font-display: optional;
+        src: url('/assets/fonts/satisfy-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+      }
 
       /* === VARIABLES === */
       :root {
