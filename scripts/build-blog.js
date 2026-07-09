@@ -447,7 +447,7 @@ async function build() {
     }
 
     const date = data.date instanceof Date ? data.date : new Date(data.date);
-    const slug = data.slug ? slugify(data.slug) : slugify(path.basename(file, '.md'));
+    const slug = data.slug ? slugify(data.slug) : slugify(String(data.title));
 
     return {
       slug,
