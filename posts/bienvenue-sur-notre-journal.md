@@ -11,7 +11,7 @@ C'est avec beaucoup de plaisir que nous lançons ce journal. C'est un moyen pour
 
 Depuis l'automne dernier, l'équipe met les bouchées doubles à la ferme. En plus des rénovations ayant eu lieu cet hiver à la crêperie, nous avons entamé la remise en culture d'un lot de 1,2 hectare. L'objectif? Déménager et mettre en terre plus de 2 200 bleuetiers.
 
-Pour arriver à cette fin, plusieurs étapes ont été entreprises et restent à entreprendre. Abatage, essouchage, broyage, nivellement, drainage, amélioration du sol, déménagement des plants et du kiosque... Grâce aux efforts de Daniel, de notre agronome ainsi que ceux des entrepreneurs ayant mis la main à la pâte, nous espérons célébrer l'ouverture de ce site à l'été 2028.
+Pour y arriver, plusieurs étapes ont été entreprises et restent à entreprendre. Abattage, essouchage, broyage, nivellement, drainage, amélioration du sol, déménagement des plants et du kiosque... Grâce aux efforts de Daniel, de nos proches, ainsi que ceux des entrepreneurs ayant mis la main à la pâte, nous espérons célébrer l'ouverture de ce site à l'été 2028.
 
 ## Pour la suite
 
