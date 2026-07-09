@@ -135,26 +135,22 @@ const BLOG_CSS = `
         gap: 2rem;
       }
       .journal-subtitle { font-style: italic; }
-      .journal-card { position: relative; padding: 0; overflow: hidden; opacity: 0.85; cursor: default; }
+      .journal-card-link { display: block; color: inherit; text-decoration: none; }
+      .journal-card {
+        position: relative;
+        padding: 0;
+        overflow: hidden;
+        transition: box-shadow 0.3s, transform 0.3s;
+      }
+      .journal-card-link:hover .journal-card {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+      }
       .journal-card-photo { aspect-ratio: 16 / 9; overflow: hidden; }
       .journal-card-photo img { width: 100%; height: 100%; object-fit: cover; }
       .journal-card h3 { padding: 1.25rem 1.5rem 0; margin-bottom: 0; }
       .journal-card .journal-date { padding: 0 1.5rem; }
       .journal-card p:last-child { padding: 0 1.5rem 1.5rem; color: var(--text-mid); }
-      .journal-badge {
-        position: absolute;
-        top: 0.75rem;
-        right: 0.75rem;
-        z-index: 1;
-        background: var(--green);
-        color: #fff;
-        font-size: 0.7rem;
-        font-style: normal;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-        padding: 0.25rem 0.65rem;
-        border-radius: 999px;
-      }
       .journal-empty { color: var(--text-mid); text-align: center; }
       .journal-date {
         color: var(--green);
@@ -165,6 +161,58 @@ const BLOG_CSS = `
       @media (max-width: 767px) {
         .journal-grid { grid-template-columns: 1fr; }
       }
+
+      /* === JOURNAL POST === */
+      .post-back {
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: var(--green);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.3s;
+      }
+      .post-back:hover { color: var(--green-dark); }
+      .post-hero {
+        max-width: 42rem;
+        margin: 0 auto 2rem;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+      .post-hero img { aspect-ratio: 16 / 9; object-fit: cover; }
+      .post-content { max-width: 42rem; margin: 0 auto; }
+      .post-content p {
+        color: var(--text-mid);
+        line-height: 1.7;
+        margin-bottom: 1.25rem;
+      }
+      .post-content h2 {
+        font-family: 'Lora', serif;
+        font-size: 1.375rem;
+        font-weight: 600;
+        color: var(--brown);
+        margin: 2rem 0 0.75rem;
+      }
+      .post-content ul {
+        list-style: disc;
+        padding-left: 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+      .post-content li { color: var(--text-mid); margin-bottom: 0.4rem; }
+      .post-content blockquote {
+        border-left: 3px solid var(--green);
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: var(--text-mid);
+      }
+      .post-content a {
+        color: var(--green);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .post-content a:hover { color: var(--green-dark); }
+      .post-content strong { color: var(--text); }
 `;
 
 const SHARED_SCRIPT = `
@@ -258,14 +306,15 @@ function renderIndexPage(posts, { headerRaw, footer }) {
   });
 
   const cards = posts.length
-    ? posts.map(post => `        <article class="card journal-card">
-          <span class="journal-badge">À venir</span>
-${post.image ? `          <div class="journal-card-photo">
-            <img src="${post.image}" alt="" loading="lazy" decoding="async" width="600" height="338" />
-          </div>\n` : ''}          <h3>${escapeHtml(post.title)}</h3>
-          <p class="journal-date">${post.dateDisplay}</p>
-          <p>Contenu en rédaction...</p>
-        </article>`).join('\n')
+    ? posts.map(post => `        <a class="journal-card-link" href="/journal/${post.slug}/">
+          <article class="card journal-card">
+${post.image ? `            <div class="journal-card-photo">
+              <img src="${post.image}" alt="" loading="lazy" decoding="async" width="600" height="338" />
+            </div>\n` : ''}            <h3>${escapeHtml(post.title)}</h3>
+            <p class="journal-date">${post.dateDisplay}</p>
+            <p>${escapeHtml(post.excerpt)}</p>
+          </article>
+        </a>`).join('\n')
     : '        <p class="journal-empty">Aucun article pour le moment. Revenez bientôt !</p>';
 
   const main = `      <section class="section section-cream">
@@ -283,12 +332,56 @@ ${cards}
   return renderPage({ head, header: renderHeader(headerRaw, { activeJournal: true }), main, footer });
 }
 
+function renderPostPage(post, { headerRaw, footer }) {
+  const canonical = `${SITE_URL}/journal/${post.slug}/`;
+  const ogImage = post.image ? `${SITE_URL}${post.image}` : `${SITE_URL}/assets/hero.webp`;
+  const head = renderHead({
+    title: `${post.title} | Journal | Ferme Oréflore`,
+    description: post.excerpt,
+    canonical,
+    ogImage,
+    ogType: 'article',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      datePublished: post.dateISO,
+      image: ogImage,
+      description: post.excerpt,
+      author: { '@type': 'Organization', name: 'Ferme Oréflore' },
+      publisher: { '@type': 'Organization', name: 'Ferme Oréflore' },
+      mainEntityOfPage: canonical,
+    },
+  });
+
+  const main = `      <section class="section section-cream">
+        <div class="container">
+          <a class="post-back" href="/journal/">← Retour au journal</a>
+          <div class="section-heading">
+            <h1>${escapeHtml(post.title)}</h1>
+            <p class="journal-date">${post.dateDisplay}</p>
+          </div>
+${post.image ? `          <div class="post-hero">
+            <img src="${post.image}" alt="" loading="lazy" decoding="async" width="1200" height="675" />
+          </div>\n` : ''}          <div class="post-content">
+${post.html}
+          </div>
+        </div>
+      </section>`;
+
+  return renderPage({ head, header: renderHeader(headerRaw, { activeJournal: true }), main, footer });
+}
+
 function updateSitemap(posts) {
   const existing = fs.readFileSync(SITEMAP_PATH, 'utf8');
   const today = toISODate(new Date());
   const journalLastmod = posts.length ? posts[0].dateISO : today;
 
-  const entries = `  <url>\n    <loc>${SITE_URL}/journal/</loc>\n    <lastmod>${journalLastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>`;
+  const postEntries = posts.map(post =>
+    `  <url>\n    <loc>${SITE_URL}/journal/${post.slug}/</loc>\n    <lastmod>${post.dateISO}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`
+  ).join('\n');
+
+  const entries = `  <url>\n    <loc>${SITE_URL}/journal/</loc>\n    <lastmod>${journalLastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>${postEntries ? `\n${postEntries}` : ''}`;
 
   const block = `  <!-- BLOG:START (auto-generated by scripts/build-blog.js, do not edit by hand) -->\n${entries}\n  <!-- BLOG:END -->`;
 
@@ -351,11 +444,15 @@ async function build() {
   }));
   posts.sort((a, b) => b.date - a.date);
 
-  // Individual post pages are not generated — entries are non-clickable
-  // placeholders on the journal index, so no per-post directories remain.
-  cleanStaleJournalDirs(new Set());
+  cleanStaleJournalDirs(new Set(posts.map(post => post.slug)));
 
   fs.writeFileSync(path.join(JOURNAL_DIR, 'index.html'), renderIndexPage(posts, { headerRaw, footer }));
+
+  for (const post of posts) {
+    const postDir = path.join(JOURNAL_DIR, post.slug);
+    fs.mkdirSync(postDir, { recursive: true });
+    fs.writeFileSync(path.join(postDir, 'index.html'), renderPostPage(post, { headerRaw, footer }));
+  }
 
   updateSitemap(posts);
 
