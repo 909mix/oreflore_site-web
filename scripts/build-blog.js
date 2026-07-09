@@ -233,6 +233,17 @@ const BLOG_CSS = `
       }
       .post-content a:hover { color: var(--green-dark); }
       .post-content strong { color: var(--text); }
+      .post-newsletter-cta {
+        max-width: 42rem;
+        margin: 3rem auto 0;
+        padding-top: 2rem;
+        border-top: 1px solid rgb(208,201,184);
+        text-align: center;
+      }
+      .post-newsletter-cta p {
+        color: var(--text-mid);
+        margin-bottom: 1rem;
+      }
 `;
 
 const SHARED_SCRIPT = `
@@ -380,6 +391,10 @@ ${post.image ? `          <div class="post-hero">
             <img src="${post.image}" alt="${escapeHtml(post.imageAlt)}" loading="lazy" decoding="async" width="1200" height="675" />
           </div>\n` : ''}          <div class="post-content">
 ${post.html}
+          </div>
+          <div class="post-newsletter-cta">
+            <p>Inscrivez-vous à l'infolettre pour recevoir de nos nouvelles.</p>
+            <a href="/#contact" class="btn btn-green">S'inscrire à l'infolettre</a>
           </div>
         </div>
       </section>`;
