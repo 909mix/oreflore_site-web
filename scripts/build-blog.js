@@ -351,7 +351,7 @@ function renderPostPage(post, { headerRaw, footer }) {
   const canonical = `${SITE_URL}/journal/${post.slug}/`;
   const ogImage = post.image ? `${SITE_URL}${post.image}` : `${SITE_URL}/assets/hero.webp`;
   const head = renderHead({
-    title: `${post.title} | Journal | Ferme Oréflore`,
+    title: `${post.title} | Ferme Oréflore`,
     description: post.excerpt,
     canonical,
     ogImage,
