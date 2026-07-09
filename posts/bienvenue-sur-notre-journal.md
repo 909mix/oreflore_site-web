@@ -1,10 +1,11 @@
 ---
 title: "Un nouveau site en vue"
 date: 2026-07-09
-image: /assets/journal-01-01.jpg
+image: journal-01-01.jpg
+alt: "L'équipe marche sur la future bleuetière."
 ---
 
-C'est avec beaucoup de plaisir que nous lançons ce journal. C'est un moyen pour nous de documenter le cheminement de ce projet de vie, et pour vous de rester informer à propos de la bleuetière et de la crêperie.
+C'est avec beaucoup de plaisir que nous lançons ce journal. C'est un moyen pour nous de documenter le cheminement de ce projet de vie, et pour vous d'être informé à propos de la bleuetière et de la crêperie.
 
 ## Déménagement de la bleuetière
 

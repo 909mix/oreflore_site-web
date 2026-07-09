@@ -9,6 +9,7 @@ import sharp from 'sharp';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const POSTS_DIR = path.join(ROOT, 'posts');
+const POST_IMAGES_DIR = path.join(POSTS_DIR, 'images');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const JOURNAL_DIR = path.join(PUBLIC_DIR, 'journal');
 const JOURNAL_IMAGES_DIR = path.join(PUBLIC_DIR, 'assets', 'journal');
@@ -62,25 +63,42 @@ function toISODate(date) {
   return date.toISOString().slice(0, 10);
 }
 
+// Post content may link out (e.g. to Facebook/Instagram); match the rest of
+// the site's external-link convention: open in a new tab, guard against
+// tabnabbing via rel="noopener noreferrer".
+const postRenderer = new marked.Renderer();
+const baseLinkRenderer = postRenderer.link.bind(postRenderer);
+postRenderer.link = function (token) {
+  let html = baseLinkRenderer(token);
+  if (/^https?:\/\//.test(token.href)) {
+    html = html.replace('<a ', '<a target="_blank" rel="noopener noreferrer" ');
+  }
+  return html;
+};
+
 // Resizes a post's cover image to card display dimensions and converts it to
 // WebP, writing the result into public/assets/journal/ (generated, gitignored).
-// Images already in WebP are left as-is (assumed pre-optimized).
-async function optimizeBlogImage(imagePath) {
-  const ext = path.extname(imagePath).toLowerCase();
-  if (!OPTIMIZABLE_EXT.has(ext)) return imagePath;
-
-  const sourceAbs = path.join(PUBLIC_DIR, imagePath.replace(/^\//, ''));
+// Source images live in posts/images/ (committed, but outside public/ so raw
+// unoptimized originals never get deployed). Images already in WebP are
+// copied through as-is (assumed pre-optimized).
+async function optimizeBlogImage(imageFilename) {
+  const ext = path.extname(imageFilename).toLowerCase();
+  const sourceAbs = path.join(POST_IMAGES_DIR, imageFilename);
   if (!fs.existsSync(sourceAbs)) {
-    throw new Error(`Blog image not found: ${imagePath}`);
+    throw new Error(`Post image not found: posts/images/${imageFilename}`);
   }
 
-  const outputName = `${path.basename(imagePath, ext)}.webp`;
+  const outputName = `${path.basename(imageFilename, ext)}.webp`;
   const outputAbs = path.join(JOURNAL_IMAGES_DIR, outputName);
 
-  await sharp(sourceAbs)
-    .resize(CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT, { fit: 'cover' })
-    .webp({ quality: 80 })
-    .toFile(outputAbs);
+  if (!OPTIMIZABLE_EXT.has(ext)) {
+    fs.copyFileSync(sourceAbs, outputAbs);
+  } else {
+    await sharp(sourceAbs)
+      .resize(CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT, { fit: 'cover' })
+      .webp({ quality: 80 })
+      .toFile(outputAbs);
+  }
 
   return `/assets/journal/${outputName}`;
 }
@@ -255,11 +273,6 @@ function renderHead({ title, description, canonical, ogImage, ogType, jsonLd }) 
     <meta name="theme-color" content="#5f7a5f" />
     <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/lora-latin.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/satisfy-latin.woff2" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" /></noscript>
     <meta property="og:url" content="${canonical}" />
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:type" content="${ogType}" />
@@ -309,7 +322,7 @@ function renderIndexPage(posts, { headerRaw, footer }) {
     ? posts.map(post => `        <a class="journal-card-link" href="/journal/${post.slug}/">
           <article class="card journal-card">
 ${post.image ? `            <div class="journal-card-photo">
-              <img src="${post.image}" alt="" loading="lazy" decoding="async" width="600" height="338" />
+              <img src="${post.image}" alt="${escapeHtml(post.imageAlt)}" loading="lazy" decoding="async" width="600" height="338" />
             </div>\n` : ''}            <h3>${escapeHtml(post.title)}</h3>
             <p class="journal-date">${post.dateDisplay}</p>
             <p>${escapeHtml(post.excerpt)}</p>
@@ -362,7 +375,7 @@ function renderPostPage(post, { headerRaw, footer }) {
             <p class="journal-date">${post.dateDisplay}</p>
           </div>
 ${post.image ? `          <div class="post-hero">
-            <img src="${post.image}" alt="" loading="lazy" decoding="async" width="1200" height="675" />
+            <img src="${post.image}" alt="${escapeHtml(post.imageAlt)}" loading="lazy" decoding="async" width="1200" height="675" />
           </div>\n` : ''}          <div class="post-content">
 ${post.html}
           </div>
@@ -427,6 +440,9 @@ async function build() {
     if (!data.title || !data.date) {
       throw new Error(`posts/${file}: frontmatter must include "title" and "date"`);
     }
+    if (data.image && !data.alt) {
+      throw new Error(`posts/${file}: "image" is set but "alt" is missing — add descriptive alt text.`);
+    }
 
     const date = data.date instanceof Date ? data.date : new Date(data.date);
     const slug = data.slug ? slugify(data.slug) : slugify(path.basename(file, '.md'));
@@ -435,11 +451,12 @@ async function build() {
       slug,
       title: String(data.title),
       image: data.image ? await optimizeBlogImage(data.image) : null,
+      imageAlt: data.image ? String(data.alt) : '',
       date,
       dateISO: toISODate(date),
       dateDisplay: formatDate(date),
       excerpt: data.excerpt || data.description || toExcerpt(content),
-      html: marked.parse(content),
+      html: marked.parse(content, { renderer: postRenderer }),
     };
   }));
   posts.sort((a, b) => b.date - a.date);
