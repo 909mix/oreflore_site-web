@@ -27,25 +27,25 @@
     <meta property="og:title" content="Ferme Oréflore - Ripon (Québec)" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ferme Oréflore" />
-    <meta name="description" content="Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille." />
-    <meta property="og:description" content="Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille." />
+    <meta name="description" content="Autocueillette de bleuets, crêperie et kiosque à la ferme à Ripon, en Outaouais." />
+    <meta property="og:description" content="Autocueillette de bleuets, crêperie et kiosque à la ferme à Ripon, en Outaouais." />
     <meta property="og:image" content="https://oreflore.ca/assets/hero.webp" />
     <meta property="og:image:width" content="2000" />
     <meta property="og:image:height" content="945" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ferme Oréflore - Ripon (Québec)" />
-    <meta name="twitter:description" content="Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille." />
+    <meta name="twitter:description" content="Autocueillette de bleuets, crêperie et kiosque à la ferme à Ripon, en Outaouais." />
     <meta name="twitter:image" content="https://oreflore.ca/assets/hero.webp" />
-    <title>Accueil | Ferme Oréflore</title>
+    <title>Ferme Oréflore | Bleuetière et Crêperie (Ripon, QC)</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Ferme Oréflore",
         "url": "https://oreflore.ca",
-        "telephone": "+18195921095",
+        "telephone": "+18194840277",
         "image": "https://oreflore.ca/assets/hero.webp",
-        "description": "Autocueillette de bleuets et camerises, crêperie et kiosque à la ferme Oréflore, dans la Petite Nation, à Ripon en Outaouais. Vivez l'expérience en famille.",
+        "description": "Autocueillette de bleuets, crêperie et kiosque à la ferme à Ripon, en Outaouais.",
         "sameAs": [
           "https://www.facebook.com/ferme.oreflore",
           "https://www.instagram.com/ferme.oreflore"
@@ -717,6 +717,7 @@
             <a href="#activites">Activités</a>
             <a href="#visitez">Nous visiter</a>
             <a href="#contact">Pour nous joindre</a>
+            <a href="/journal/">Journal</a>
           </div>
           <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -941,7 +942,7 @@
                 </div>
                 <div>
                   <h4>Téléphone</h4>
-                  <p>(819) 592-1095</p>
+                  <p>819 484-0277</p>
                 </div>
               </div>
               <div class="contact-item">
@@ -989,7 +990,7 @@
             </svg>
           </a>
         </div>
-        <p class="footer-contact">(819) 592-1095 · 42, Montée Meunier, Ripon (Québec) J0V 1V0</p>
+        <p class="footer-contact">819 484-0277 · 42, Montée Meunier, Ripon (Québec) J0V 1V0</p>
         <p>© 2026 Ferme Oréflore S.E.N.C. Tous droits réservés.</p>
         <a href="#" class="footer-top">↑ Retour en haut</a>
       </div>
@@ -1122,6 +1123,14 @@
           }
         });
       });
+
+      // Arriving from an external link (e.g. the journal) with a section hash:
+      // scroll to it, then strip the hash so the URL stays clean.
+      if (location.hash) {
+        const incomingTarget = document.querySelector(location.hash);
+        if (incomingTarget) incomingTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', location.pathname + location.search);
+      }
 
       // Visitez photo height matching
       function matchVisitezPhotoHeight() {

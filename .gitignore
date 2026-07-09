@@ -2,3 +2,5 @@ pw.txt
 .wrangler/
 node_modules/
 preview/
+public/journal/
+public/assets/journal/
