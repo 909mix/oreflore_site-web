@@ -190,6 +190,8 @@ const BLOG_CSS = `
         transition: color 0.3s;
       }
       .post-back:hover { color: var(--green-dark); }
+      .post-header { margin-bottom: 2rem; }
+      .post-header h1 { margin-bottom: 0.3rem; }
       .post-hero {
         max-width: 42rem;
         margin: 0 auto 2rem;
@@ -370,7 +372,7 @@ function renderPostPage(post, { headerRaw, footer }) {
   const main = `      <section class="section section-cream">
         <div class="container">
           <a class="post-back" href="/journal/">← Retour au journal</a>
-          <div class="section-heading">
+          <div class="section-heading post-header">
             <h1>${escapeHtml(post.title)}</h1>
             <p class="journal-date">${post.dateDisplay}</p>
           </div>
