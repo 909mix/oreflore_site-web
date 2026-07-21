@@ -202,7 +202,7 @@
         box-shadow: var(--shadow);
       }
       .section-green  .card {
-        background: rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.15);
         box-shadow: var(--shadow-dark);
       }
 
@@ -412,7 +412,7 @@
         gap: 2rem;
       }
       .histoire-cards h3 {
-        color: var(--green);
+        color: var(--green-dark);
         text-align: center;
         margin-bottom: 0.75rem;
       }
@@ -442,7 +442,7 @@
         margin-bottom: 0;
       }
       .card-label {
-        color: var(--green);
+        color: var(--green-dark);
         font-style: italic;
         font-size: 1rem;
         margin: 0.5rem 0 0.75rem;
@@ -477,10 +477,11 @@
       }
       .section-green .btn-white {
         margin-top: 0;
-        transition: background-color 0.25s;
+        transition: background-color 0.25s, color 0.25s;
       }
       .section-green .btn-white:hover {
         background: var(--beige);
+        color: var(--green-dark);
       }
       .hours-list li {
         display: flex;
@@ -536,16 +537,10 @@
         cursor: pointer;
         transition: transform 0.25s ease, opacity 0.25s ease;
         backface-visibility: hidden;
-        will-change: transform;
       }
-      .partenaire-logo-link:hover,
-      .partenaire-logo-link:focus-visible {
+      .partenaire-logo-link:hover {
         transform: scale(1.05);
         opacity: 0.85;
-      }
-      .partenaire-logo-link:focus-visible {
-        outline: 2px solid rgba(255, 255, 255, 0.85);
-        outline-offset: 3px;
       }
       .partenaire-logo {
         display: block;
@@ -575,9 +570,13 @@
       .partenaire-name a:hover {
         color: var(--beige);
       }
+      .partenaire-name a:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline-offset: 3px;
+      }
       .partenaire-desc {
         font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.75);
+        color: #fff;
         margin-top: 0.15rem;
       }
 
@@ -918,10 +917,10 @@
         <div class="card">
           <div class="partenaires-list">
             <div class="partenaire-row">
-              <a href="https://www.lafilleduboulanger.ca/" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link">
+              <a href="https://www.lafilleduboulanger.ca/" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link" tabindex="-1" aria-hidden="true">
                 <img
                   src="/assets/partenaires/lfdb.webp"
-                  alt="Logo de La Fille du Boulanger"
+                  alt=""
                   width="56"
                   height="56"
                   class="partenaire-logo"
@@ -936,10 +935,10 @@
             </div>
 
             <div class="partenaire-row">
-              <a href="https://cafelaforet.ca/accueil" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link">
+              <a href="https://cafelaforet.ca/accueil" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link" tabindex="-1" aria-hidden="true">
                 <img
                   src="/assets/partenaires/atelier-torrefaction-la-foret.webp"
-                  alt="Logo de l'Atelier de torréfaction La Forêt"
+                  alt=""
                   width="56"
                   height="56"
                   class="partenaire-logo"
@@ -954,10 +953,10 @@
             </div>
 
             <div class="partenaire-row">
-              <a href="https://fermemoreau.com/" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link">
+              <a href="https://fermemoreau.com/" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link" tabindex="-1" aria-hidden="true">
                 <img
                   src="/assets/partenaires/ferme-moreau.webp"
-                  alt="Logo de Ferme Moreau"
+                  alt=""
                   width="56"
                   height="56"
                   class="partenaire-logo"
@@ -972,10 +971,10 @@
             </div>
 
             <div class="partenaire-row">
-              <a href="https://defriche.wixsite.com/ladefriche" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link">
+              <a href="https://defriche.wixsite.com/ladefriche" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link" tabindex="-1" aria-hidden="true">
                 <img
                   src="/assets/partenaires/la-defriche.webp"
-                  alt="Logo de La Défriche"
+                  alt=""
                   width="56"
                   height="56"
                   class="partenaire-logo"
@@ -990,10 +989,10 @@
             </div>
 
             <div class="partenaire-row">
-              <a href="https://fr.fermeagricola.com/" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link">
+              <a href="https://fr.fermeagricola.com/" target="_blank" rel="noopener noreferrer" class="partenaire-logo-link" tabindex="-1" aria-hidden="true">
                 <img
                   src="/assets/partenaires/agricola.webp"
-                  alt="Logo de Agricola"
+                  alt=""
                   width="56"
                   height="56"
                   class="partenaire-logo"
