@@ -131,6 +131,7 @@ function renderHeader(headerRaw, { activeJournal = false } = {}) {
   let header = headerRaw
     .replace('<a href="#" class="nav-logo"', '<a href="/" class="nav-logo"')
     .replace('href="#histoire"', 'href="/#histoire"')
+    .replace('href="#partenaires"', 'href="/#partenaires"')
     .replace('href="#activites"', 'href="/#activites"')
     .replace('href="#visitez"', 'href="/#visitez"')
     .replace('href="#contact"', 'href="/#contact"');
