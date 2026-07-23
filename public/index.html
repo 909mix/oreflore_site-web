@@ -419,6 +419,7 @@
       .histoire-cards p {
         color: var(--text-mid);
         line-height: 1.5;
+        text-align: center;
       }
       .histoire-closing {
         color: var(--text-mid);
@@ -777,7 +778,7 @@
       /* === SCROLL REVEAL === */
       .reveal {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(8px);
         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
       }
       .reveal.visible {
@@ -908,11 +909,11 @@
       </div>
     </section>
 
-    <!-- NOS PARTENAIRES -->
+    <!-- NOS COPAINS -->
     <section id="partenaires" class="section section-green">
       <div class="container">
         <div class="section-heading">
-          <h2>Nos partenaires</h2>
+          <h2>Nos copains</h2>
         </div>
         <div class="card">
           <div class="partenaires-list">
@@ -1001,7 +1002,7 @@
                 />
               </a>
               <div class="partenaire-info">
-                <p class="partenaire-name"><a href="https://fr.fermeagricola.com/" target="_blank" rel="noopener noreferrer">Agricola</a></p>
+                <p class="partenaire-name"><a href="https://fr.fermeagricola.com/" target="_blank" rel="noopener noreferrer">Ferme Coopérative Agricola</a></p>
                 <p class="partenaire-desc">Nos tomates et nos asperges viennent de chez eux, cultivées à quelques kilomètres d'ici.</p>
               </div>
             </div>
@@ -1020,7 +1021,7 @@
         <div class="activites-grid">
           <div class="card">
             <h3>Autocueillette</h3>
-            <p class="card-label">les dimanches<br><span style="font-size:0.85em;">à partir de mi-juillet</span></p>
+            <p class="card-label">les dimanches</p>
             <p>Bien que la camerise soit offerte durant le mois de juin,
             l'autocueillette ne concerne que le bleuet en corymbe.</p>
           </div>
@@ -1346,14 +1347,17 @@
         resizeFrame = requestAnimationFrame(matchVisitezPhotoHeight);
       });
 
-      // Scroll reveal — bidirectional fade per element.
+      // Scroll reveal — reveals each element once, then stops observing it.
       // rootMargin extends the trigger zone below the viewport so the
       // animation plays out while still scrolling, not exactly when a
       // mobile browser's toolbar collapse causes scrolling to settle
       // (which otherwise makes the fade-in read as a layout bump).
       const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          entry.target.classList.toggle('visible', entry.isIntersecting);
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
         });
       }, { threshold: 0, rootMargin: '0px 0px 20% 0px' });
 
