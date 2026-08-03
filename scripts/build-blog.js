@@ -172,7 +172,7 @@ const BLOG_CSS = `
       .journal-card p:last-child { padding: 0 1.5rem 1.5rem; color: var(--text-mid); }
       .journal-empty { color: var(--text-mid); text-align: center; }
       .journal-date {
-        color: var(--green);
+        color: var(--green-text);
         font-style: italic;
         font-size: 0.9rem;
         margin: 0.35rem 0 0.75rem;
@@ -185,7 +185,7 @@ const BLOG_CSS = `
       .post-back {
         display: inline-block;
         margin-bottom: 2rem;
-        color: var(--green);
+        color: var(--green-text);
         text-decoration: none;
         font-size: 0.875rem;
         transition: color 0.3s;
@@ -228,7 +228,7 @@ const BLOG_CSS = `
         color: var(--text-mid);
       }
       .post-content a {
-        color: var(--green);
+        color: var(--green-text);
         text-decoration: underline;
         text-underline-offset: 2px;
       }

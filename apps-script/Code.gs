@@ -8,16 +8,25 @@ function doPost(e) {
     var courriel = e.parameter.courriel || '';
     var token    = e.parameter['cf-turnstile-response'] || '';
 
-    // Validate Turnstile CAPTCHA (skip if secret not configured)
-    if (TURNSTILE_SECRET !== 'COLLER_CLE_SECRETE_ICI' && token) {
-      var verify = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method      : 'post',
-        contentType : 'application/x-www-form-urlencoded',
-        payload     : 'secret=' + TURNSTILE_SECRET + '&response=' + token
-      });
-      if (!JSON.parse(verify.getContentText()).success) {
-        return json({ success: false, error: 'CAPTCHA invalide' });
-      }
+    // Validate Turnstile CAPTCHA. This fails closed: a request with no token,
+    // or a deployment where the secret was never filled in, is rejected rather
+    // than waved through — otherwise anyone can POST straight to /exec.
+    if (!token) {
+      return json({ success: false, error: 'CAPTCHA requis' });
+    }
+    if (TURNSTILE_SECRET === 'COLLER_CLE_SECRETE_ICI') {
+      return json({ success: false, error: 'Configuration serveur incomplete' });
+    }
+    var verify = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method      : 'post',
+      contentType : 'application/x-www-form-urlencoded',
+      // Tokens are base64-ish and can contain '+', which a form-encoded body
+      // would otherwise decode as a space.
+      payload     : 'secret=' + encodeURIComponent(TURNSTILE_SECRET) +
+                    '&response=' + encodeURIComponent(token)
+    });
+    if (!JSON.parse(verify.getContentText()).success) {
+      return json({ success: false, error: 'CAPTCHA invalide' });
     }
 
     // Basic validation

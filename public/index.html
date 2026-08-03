@@ -8,12 +8,22 @@
     <link rel="canonical" href="https://oreflore.ca/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta name="theme-color" content="#5f7a5f" />
+    <!-- Preload the hero with the same breakpoint the CSS uses. imagesrcset
+         picks by viewport x DPR, so a 393px phone at DPR 3 would preload the
+         2000w file while .hero::before painted the mobile one — downloading
+         both. media= matches the @media rule below in CSS pixels instead. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero-mobile.webp"
+      media="(max-width: 899px)"
+      fetchpriority="high"
+    />
     <link
       rel="preload"
       as="image"
       href="/assets/hero.webp"
-      imagesrcset="/assets/hero-mobile.webp 900w, /assets/hero.webp 2000w"
-      imagesizes="100vw"
+      media="(min-width: 900px)"
       fetchpriority="high"
     />
     <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/lora-latin.woff2" crossorigin />
@@ -106,6 +116,9 @@
       :root {
         --green:       rgb(94, 126, 100);
         --green-dark:  rgb(77, 105, 83);
+        /* --green is only 4.19:1 on --cream — below WCAG AA for normal text.
+           Use --green-text (6.14:1) wherever green is used as body-size text. */
+        --green-text:  rgb(72, 99, 78);
         --brown:       #634017;
         --text:        rgb(44, 40, 36);
         --text-mid:    rgb(60, 56, 47);
@@ -157,6 +170,15 @@
         background-repeat: repeat;
         background-size: 180px 180px;
         pointer-events: none;
+        z-index: 0;
+      }
+      /* Keep section content above the grain. Without this the absolutely
+         positioned ::after paints over the text, which both lowers real
+         contrast and makes axe report "background could not be determined
+         due to a pseudo element" — silently skipping the contrast check. */
+      .section > .container {
+        position: relative;
+        z-index: 1;
       }
 
       /* === TYPOGRAPHY === */
@@ -269,7 +291,7 @@
       header.scrolled nav { padding: 0.5rem 0; }
       header.scrolled .nav-logo { font-size: 1.35rem; }
       header.scrolled .nav-links { font-size: 0.8rem; }
-      .nav-links a.active { color: var(--green); font-weight: 500; }
+      .nav-links a.active { color: var(--green-text); font-weight: 500; }
       .nav-logo {
         font-family: 'Satisfy', 'Lora', serif;
         color: var(--brown);
