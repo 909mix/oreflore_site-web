@@ -167,7 +167,16 @@ const BLOG_CSS = `
       }
       .journal-card-photo { aspect-ratio: 16 / 9; overflow: hidden; }
       .journal-card-photo img { width: 100%; height: 100%; object-fit: cover; }
-      .journal-card h3 { padding: 1.25rem 1.5rem 0; margin-bottom: 0; }
+      /* Card titles are h2 so the outline runs h1 -> h2 rather than skipping a
+         level. These rules restore the h3 appearance they had before. */
+      .journal-card h2 {
+        font-family: 'Lora', serif;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 500;
+        padding: 1.25rem 1.5rem 0;
+        margin-bottom: 0;
+      }
       .journal-card .journal-date { padding: 0 1.5rem; }
       .journal-card p:last-child { padding: 0 1.5rem 1.5rem; color: var(--text-mid); }
       .journal-empty { color: var(--text-mid); text-align: center; }
@@ -286,7 +295,7 @@ function renderHead({ title, description, canonical, ogImage, ogType, jsonLd }) 
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <meta name="theme-color" content="#5f7a5f" />
     <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/lora-latin.woff2" crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/satisfy-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/lora-latin-italic.woff2" crossorigin />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:type" content="${ogType}" />
@@ -333,15 +342,21 @@ function renderIndexPage(posts, { headerRaw, footer }) {
   });
 
   const cards = posts.length
-    ? posts.map(post => `        <a class="journal-card-link" href="/journal/${post.slug}/">
+    ? posts.map((post, i) => {
+      // The newest card's image is the LCP element on /journal/, so it must not
+      // be lazy-loaded — that deferral cost ~0.5s of LCP. Later cards are below
+      // the fold and stay lazy.
+      const loading = i === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+      return `        <a class="journal-card-link" href="/journal/${post.slug}/">
           <article class="card journal-card">
 ${post.image ? `            <div class="journal-card-photo">
-              <img src="${post.image}" alt="${escapeHtml(post.imageAlt)}" loading="lazy" decoding="async" width="600" height="338" />
-            </div>\n` : ''}            <h3>${escapeHtml(post.title)}</h3>
+              <img src="${post.image}" alt="${escapeHtml(post.imageAlt)}" ${loading} decoding="async" width="600" height="338" />
+            </div>\n` : ''}            <h2>${escapeHtml(post.title)}</h2>
             <p class="journal-date">${post.dateDisplay}</p>
             <p>${escapeHtml(post.excerpt)}</p>
           </article>
-        </a>`).join('\n')
+        </a>`;
+    }).join('\n')
     : '        <p class="journal-empty">Aucun article pour le moment. Revenez bientôt !</p>';
 
   const main = `      <section class="section section-cream">
@@ -389,7 +404,7 @@ function renderPostPage(post, { headerRaw, footer }) {
             <p class="journal-date">${post.dateDisplay}</p>
           </div>
 ${post.image ? `          <div class="post-hero">
-            <img src="${post.image}" alt="${escapeHtml(post.imageAlt)}" loading="lazy" decoding="async" width="1200" height="675" />
+            <img src="${post.image}" alt="${escapeHtml(post.imageAlt)}" loading="eager" fetchpriority="high" decoding="async" width="1200" height="675" />
           </div>\n` : ''}          <div class="post-content">
 ${post.html}
           </div>
