@@ -1115,7 +1115,7 @@
           <!-- Infolettre -->
           <div class="card">
             <h3>Infolettre</h3>
-            <p>Pour connaître les avancées de notre projet, nous vous
+            <p id="infolettre-intro">Pour connaître les avancées de notre projet, nous vous
             invitons à vous inscrire à notre infolettre.</p>
             <form id="form_inscription" action="" method="post">
               <div class="form-group">
@@ -1237,6 +1237,10 @@
             mode   : 'no-cors',
             body   : new URLSearchParams({ nom, courriel, 'cf-turnstile-response': token }),
           });
+          // Once subscribed, the invitation to subscribe is no longer relevant:
+          // leave only the "Infolettre" heading and the confirmation.
+          const intro = document.getElementById('infolettre-intro');
+          if (intro) intro.remove();
           form.innerHTML = '<p style="color:var(--green);padding:0.5rem 0 0.25rem;text-align:center;">Vous êtes maintenant inscrit.</p><p style="font-size:0.8rem;color:#a8a8a8;font-style:italic;text-align:center;line-height:1.4;">Si vous ne recevez pas de confirmation dans les prochains jours, écrivez-nous à <a href="mailto:info@oreflore.ca" style="color:inherit;">info@oreflore.ca</a>.</p>';
         } catch (err) {
           btn.disabled    = false;
