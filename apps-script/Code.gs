@@ -2,6 +2,9 @@ const SHEET_ID         = '1fnMikQI5xcIQRIdYsBLSJh57Z_iDnAguRviieBRM_6M';
 const TURNSTILE_SECRET = 'COLLER_CLE_SECRETE_ICI';
 const BREVO_API_KEY    = 'BREVO_API_KEY_HERE';
 
+// Les chaines 'error' ci-dessous sont affichees telles quelles au visiteur
+// (voir #form-error dans index.html). Elles doivent rester en francais correct
+// et ne jamais exposer de detail interne.
 function doPost(e) {
   try {
     var nom      = e.parameter.nom      || '';
@@ -12,10 +15,10 @@ function doPost(e) {
     // or a deployment where the secret was never filled in, is rejected rather
     // than waved through — otherwise anyone can POST straight to /exec.
     if (!token) {
-      return json({ success: false, error: 'CAPTCHA requis' });
+      return json({ success: false, error: 'Veuillez compléter la vérification de sécurité.' });
     }
     if (TURNSTILE_SECRET === 'COLLER_CLE_SECRETE_ICI') {
-      return json({ success: false, error: 'Configuration serveur incomplete' });
+      return json({ success: false, error: 'Le service d\'inscription est temporairement indisponible.' });
     }
     var verify = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method      : 'post',
@@ -26,12 +29,12 @@ function doPost(e) {
                     '&response=' + encodeURIComponent(token)
     });
     if (!JSON.parse(verify.getContentText()).success) {
-      return json({ success: false, error: 'CAPTCHA invalide' });
+      return json({ success: false, error: 'La vérification de sécurité a échoué. Veuillez réessayer.' });
     }
 
     // Basic validation
     if (!nom || !courriel || courriel.indexOf('@') === -1) {
-      return json({ success: false, error: 'Donnees invalides' });
+      return json({ success: false, error: 'Veuillez saisir un nom et une adresse courriel valides.' });
     }
 
     // 1. Append to Google Sheet
@@ -59,10 +62,18 @@ function doPost(e) {
     return json({ success: true });
 
   } catch (err) {
-    return json({ success: false, error: err.toString() });
+    // Le detail reel va dans les journaux Apps Script (Executions), pas dans le
+    // navigateur du visiteur : err.toString() peut contenir des identifiants
+    // internes et n'est pas un message utile pour l'utilisateur.
+    console.error(err);
+    return json({ success: false, error: 'Une erreur est survenue. Veuillez réessayer.' });
   }
 }
 
+// Note : ContentService ne permet pas d'ajouter des en-tetes de reponse. Ce
+// n'est pas necessaire — Google renvoie deja Access-Control-Allow-Origin: *
+// sur les web apps deployees en acces « Tout le monde », ce qui rend ce JSON
+// lisible depuis oreflore.ca.
 function json(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
