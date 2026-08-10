@@ -80,7 +80,9 @@
             "dayOfWeek": "Sunday",
             "opens": "10:00",
             "closes": "16:00",
-            "name": "Autocueillette"
+            "name": "Autocueillette",
+            "validFrom": "2026-07-12",
+            "validThrough": "2026-08-09"
           }
         ]
       }
@@ -479,6 +481,9 @@
         margin: 0.5rem 0 0.75rem;
         line-height: 1.1;
       }
+      /* Hors saison : le libellé passe au taupe pour se retirer discrètement
+         à côté des activités encore offertes. 5.4:1 sur le beige des cartes. */
+      .card-label.is-closed { color: #635a4e; }
       .activites-grid p:last-child {
         color: var(--text-mid);
       }
@@ -520,6 +525,9 @@
         gap: 1rem;
         padding: 0.1rem 0;
       }
+      /* Hors saison : l'italique distingue l'état des heures d'ouverture.
+         Le blanc reste plein — l'atténuer tomberait sous 4.5:1 sur le vert. */
+      .hours-list li.is-closed { font-style: italic; }
       .h3-separator {
         margin-top: 1.75rem;
       }
@@ -685,6 +693,16 @@
       }
       .btn-submit:hover { background: var(--green-dark); }
       .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+      /* Message d'échec d'inscription. Brique désaturée : 7.5:1 sur --cream. */
+      .rejoindre-grid .card p.form-error {
+        margin-top: 0.6rem;
+        margin-bottom: 0;
+        font-size: 0.85rem;
+        color: #8a3324;
+        line-height: 1.4;
+        text-align: center;
+      }
+      .form-error[hidden] { display: none; }
       .rejoindre-grid .card p.form-note {
         margin-top: 0.4rem;
         margin-bottom: 0;
@@ -1035,15 +1053,19 @@
           <p><em>Nous offrons une variété d'activités dont vous pouvez profiter avec vos proches.</em></p>
         </div>
         <div class="activites-grid">
+          <!-- Hors saison. En saison, retirer « is-closed » et rétablir les
+               libellés : Autocueillette « les dimanches », Kiosque « ouvert
+               lors de l'autocueillette ». Voir aussi les heures Bleuetière
+               et le validFrom/validThrough du JSON-LD. -->
           <div class="card">
             <h3>Autocueillette</h3>
-            <p class="card-label">les dimanches</p>
+            <p class="card-label is-closed">fermé pour la saison</p>
             <p>Bien que la camerise soit offerte durant le mois de juin,
             l'autocueillette ne concerne que le bleuet en corymbe.</p>
           </div>
           <div class="card">
             <h3>Kiosque à la ferme</h3>
-            <p class="card-label">ouvert lors de l'autocueillette</p>
+            <p class="card-label is-closed">fermé pour la saison</p>
             <p>Des bleuets frais et des produits transformés sont offerts sur place.</p>
           </div>
           <div class="card">
@@ -1068,14 +1090,14 @@
               <h3>Bleuetière</h3>
               <p class="visitez-address">51B, Montée Meunier, Ripon (Québec) J0V 1V0</p>
               <ul class="hours-list">
-                <li>Dimanches, 10h - 16h</li>
+                <li class="is-closed">Saison terminée — à l'an prochain!</li>
               </ul>
               <a
                 href="https://maps.app.goo.gl/Rhb5mwbWUjTZCfWQ6"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn btn-white"
-              >Obtenir les directions</a>
+              >Voir l'emplacement</a>
 
               <h3 class="h3-separator">Crêperie</h3>
               <p class="visitez-address">42, Montée Meunier, Ripon (Québec) J0V 1V0</p>
@@ -1139,6 +1161,7 @@
                 <div class="cf-turnstile" data-sitekey="0x4AAAAAADg40iSCEKX7QERA" data-theme="light" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
               </div>
               <button type="submit" id="inscrire" class="btn-submit">M'inscrire</button>
+              <p class="form-error" id="form-error" role="alert" hidden></p>
               <p class="form-note">
                 <em>Votre nom et votre adresse courriel serviront uniquement
                 à l'envoi de notre infolettre. Vous pourrez vous
@@ -1223,6 +1246,33 @@
         btn.textContent = "M'inscrire";
       }
 
+      function showFormError(message) {
+        const el = document.getElementById('form-error');
+        if (!el) return;
+        el.textContent = message || 'Une erreur est survenue. Veuillez réessayer.';
+        el.hidden = false;
+      }
+      function clearFormError() {
+        const el = document.getElementById('form-error');
+        if (!el) return;
+        el.textContent = '';
+        el.hidden = true;
+      }
+      // Un jeton Turnstile est à usage unique : sans réinitialisation, toute
+      // nouvelle tentative après un échec serait rejetée comme un doublon.
+      function resetTurnstile() {
+        if (window.turnstile && typeof window.turnstile.reset === 'function') {
+          try { window.turnstile.reset(); } catch (e) {}
+        }
+      }
+      function failSubmission(message) {
+        const btn = document.getElementById('inscrire');
+        btn.disabled    = false;
+        btn.textContent = "M'inscrire";
+        showFormError(message);
+        resetTurnstile();
+      }
+
       document.getElementById('form_inscription').addEventListener('submit', async function(e) {
         e.preventDefault();
         const form = e.target;
@@ -1232,30 +1282,39 @@
         const token    = (form.querySelector('[name="cf-turnstile-response"]') || {}).value || '';
 
         if (turnstileLoaded && !token) {
-          const note = form.querySelector('.form-note');
-          if (note) note.textContent = 'Veuillez compléter la vérification de sécurité avant de soumettre.';
+          showFormError('Veuillez compléter la vérification de sécurité avant de soumettre.');
           return;
         }
 
         btn.disabled    = true;
         btn.textContent = 'Inscription en cours…';
+        clearFormError();
 
         try {
-          await fetch(APPS_SCRIPT_URL, {
+          // Pas de mode:'no-cors' — /exec renvoie déjà Access-Control-Allow-Origin: *,
+          // donc le corps JSON est lisible et les erreurs de Code.gs parviennent
+          // à l'utilisateur. Le corps URLSearchParams doit rester : son type
+          // form-urlencoded fait partie de la liste sûre CORS, ce qui évite un
+          // preflight auquel Apps Script ne sait pas répondre.
+          const res = await fetch(APPS_SCRIPT_URL, {
             method : 'POST',
-            mode   : 'no-cors',
             body   : new URLSearchParams({ nom, courriel, 'cf-turnstile-response': token }),
           });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          // Apps Script répond 200 même en cas d'échec logique : c'est le champ
+          // success du JSON, et non le statut, qui tranche.
+          const data = await res.json();
+          if (!data.success) {
+            failSubmission(data.error);
+            return;
+          }
           // Once subscribed, the invitation to subscribe is no longer relevant:
           // leave only the "Infolettre" heading and the confirmation.
           const intro = document.getElementById('infolettre-intro');
           if (intro) intro.remove();
           form.innerHTML = '<p style="color:var(--green);padding:0.5rem 0 0.25rem;text-align:center;">Vous êtes maintenant inscrit.</p><p style="font-size:0.8rem;color:#a8a8a8;font-style:italic;text-align:center;line-height:1.4;">Si vous ne recevez pas de confirmation dans les prochains jours, écrivez-nous à <a href="mailto:info@oreflore.ca" style="color:inherit;">info@oreflore.ca</a>.</p>';
         } catch (err) {
-          btn.disabled    = false;
-          btn.textContent = "M'inscrire";
-          const note = form.querySelector('.form-note');
-          if (note) note.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+          failSubmission();
         }
       });
 
