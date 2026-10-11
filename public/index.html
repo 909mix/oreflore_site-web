@@ -83,6 +83,22 @@
             "name": "Autocueillette",
             "validFrom": "2026-07-12",
             "validThrough": "2026-08-09"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "opens": "00:00",
+            "closes": "00:00",
+            "name": "Crêperie",
+            "validFrom": "2026-10-17",
+            "validThrough": "2026-10-17"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "opens": "00:00",
+            "closes": "00:00",
+            "name": "Crêperie",
+            "validFrom": "2026-10-24",
+            "validThrough": "2026-10-24"
           }
         ]
       }
@@ -842,9 +858,170 @@
       footer .social-links a { color: rgba(255,255,255,0.65); }
       footer .social-links a:hover { color: #fff; }
     </style>
+    <!-- Avis temporaire : feuille à part, car build-blog.js recopie la
+         première feuille de style dans les pages du journal et l'avis ne
+         concerne que l'accueil. L'attribut id la met aussi hors de portée de
+         son expression régulière. -->
+    <style id="avis-css">
+      .avis {
+        position: fixed;
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 60;
+        max-width: 24rem;
+        margin-left: auto;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.25rem;
+        padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+        background: var(--cream);
+        color: var(--text);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        transform: translateY(0.5rem);
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .avis[hidden] { display: none; }
+      .avis.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+      /* 13.5:1 sur --cream. Le padding vertical centre la première ligne sur
+         le bouton de 44px. */
+      .avis-texte {
+        flex: 1;
+        padding: 0.65rem 0;
+        font-size: 0.95rem;
+        line-height: 1.45;
+      }
+      .avis-fermer {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0;
+        background: none;
+        border: none;
+        border-radius: 9999px;
+        color: var(--text-mid);
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .avis-fermer:hover { background: rgba(0,0,0,0.06); }
+      .avis-fermer:focus-visible { outline: 2px solid var(--green-text); outline-offset: 2px; }
+      .avis-fermer svg { width: 1.25rem; height: 1.25rem; }
+      /* Tant que l'avis est affiché, le pied de page s'allonge pour que rien ne
+         reste coincé sous la carte, et le défilement au clavier s'arrête
+         au-dessus d'elle. --avis-h est tenu à jour par le script de l'avis. */
+      html.avis-ouvert { scroll-padding-bottom: calc(var(--avis-h, 0px) + 2rem); }
+      html.avis-ouvert footer { padding-bottom: calc(0.75rem + var(--avis-h, 0px) + 2rem); }
+      @media (prefers-reduced-motion: reduce) {
+        .avis { transition: none; transform: none; }
+      }
+      @media print {
+        .avis { display: none; }
+      }
+    </style>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Aller au contenu</a>
+
+    <!-- AVIS TEMPORAIRE — se masque seul après le 31 octobre 2026 (heure de
+         Toronto). Placé tôt dans le document pour que le bouton de fermeture
+         vienne juste après le lien d'évitement au clavier, et hors de
+         l'en-tête et du pied de page, que build-blog.js recopie dans le
+         journal. Une fois la date passée, retirer ce bloc, la feuille
+         « avis-css » de l'en-tête du document et, dans le JSON-LD, les deux
+         entrées de fermeture de la Crêperie (17 et 24 octobre) de
+         openingHoursSpecification.
+         Ne jamais écrire de balise littérale (header, footer, style) dans ce
+         commentaire : les expressions régulières de build-blog.js s'y
+         accrocheraient et embarqueraient l'avis dans le journal. -->
+    <aside id="avis" class="avis" aria-label="Avis de fermeture temporaire" hidden>
+      <p class="avis-texte" role="status" aria-live="polite">La crêperie sera fermée les samedis 17 et 24 octobre. De retour le 31 octobre!</p>
+      <button type="button" class="avis-fermer" aria-label="Fermer l'avis">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </aside>
+    <script>
+      (() => {
+        const DERNIER_JOUR = '2026-10-31'; // inclus, heure de Toronto
+        const CLE = 'oreflore:avis-fermeture-2026-10';
+        const avis = document.getElementById('avis');
+        if (!avis) return;
+
+        function aujourdhuiToronto() {
+          const parts = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'America/Toronto', year: 'numeric', month: '2-digit', day: '2-digit',
+          }).formatToParts(new Date());
+          const part = type => parts.find(p => p.type === type).value;
+          return `${part('year')}-${part('month')}-${part('day')}`;
+        }
+
+        try {
+          // Dates AAAA-MM-JJ : l'ordre alphabétique est l'ordre chronologique.
+          if (aujourdhuiToronto() > DERNIER_JOUR) return;
+        } catch (e) {
+          return; // Intl sans fuseaux : mieux vaut ne rien montrer qu'un avis périmé.
+        }
+
+        let dejaFerme = false;
+        try { dejaFerme = localStorage.getItem(CLE) === '1'; } catch (e) {}
+        if (dejaFerme) return;
+
+        const texte  = avis.querySelector('.avis-texte');
+        const bouton = avis.querySelector('.avis-fermer');
+        const racine = document.documentElement;
+        const message = texte.textContent;
+
+        const suivreHauteur = new ResizeObserver(() => {
+          racine.style.setProperty('--avis-h', avis.offsetHeight + 'px');
+        });
+
+        function fermer() {
+          const avaitLeFocus = avis.contains(document.activeElement);
+          avis.hidden = true;
+          racine.classList.remove('avis-ouvert');
+          suivreHauteur.disconnect();
+          document.removeEventListener('keydown', surTouche);
+          try { localStorage.setItem(CLE, '1'); } catch (e) {}
+          // Le bouton disparaît : rendre le focus à l'élément qui le suit
+          // plutôt que de le laisser tomber sur <body>.
+          if (avaitLeFocus) {
+            const suivant = document.querySelector('.nav-logo');
+            if (suivant) suivant.focus();
+          }
+        }
+
+        function surTouche(e) {
+          if (e.key !== 'Escape' || e.defaultPrevented) return;
+          // Dans un champ, Échap sert à vider ou à refermer l'autocomplétion :
+          // ne pas fermer l'avis pour de bon par mégarde.
+          if (e.target.closest && e.target.closest('input, textarea, select')) return;
+          fermer();
+        }
+
+        // Une région live n'annonce que les changements survenus après son
+        // entrée dans l'arbre d'accessibilité : on l'affiche vide (encore
+        // transparente), puis on y remet le message.
+        texte.textContent = '';
+        avis.hidden = false;
+        racine.classList.add('avis-ouvert');
+        suivreHauteur.observe(avis);
+        setTimeout(() => {
+          texte.textContent = message;
+          avis.classList.add('is-visible');
+          // Écouteurs posés seulement maintenant : un Échap pressé avant
+          // l'apparition ne doit pas masquer pour de bon un avis jamais vu.
+          bouton.addEventListener('click', fermer);
+          document.addEventListener('keydown', surTouche);
+        }, 500);
+      })();
+    </script>
 
     <!-- HEADER -->
     <header>
