@@ -59,7 +59,7 @@ Site statique d'une bleuetière et crêperie de Ripon (Québec). Contenu et inte
 ## Contenu de référence
 
 - Ferme Oréflore S.E.N.C. — https://oreflore.ca
-- Crêperie : 42, Montée Meunier, Ripon (Québec) J0V 1V0 — samedis, 8h - 12h, toute l'année. C'est l'adresse du JSON-LD et du pied de page.
+- Crêperie : 42, Montée Meunier, Ripon (Québec) J0V 1V0 — samedis, 8h - 13h, toute l'année. C'est l'adresse du JSON-LD et du pied de page.
 - Bleuetière (autocueillette et kiosque) : 51B, Montée Meunier, Ripon (Québec) J0V 1V0 — dimanches, 10h - 16h, en saison seulement (dates fixées chaque année).
 - Téléphone : 819 484-0277 (`+18194840277` dans `tel:` et le JSON-LD). Courriel : info@oreflore.ca.
 - Réseaux : facebook.com/ferme.oreflore, instagram.com/ferme.oreflore.
